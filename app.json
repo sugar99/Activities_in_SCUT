@@ -1,0 +1,39 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/test/test"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "tabBar": {
+    "color": "#a9b7b7",
+    "selectedColor": "#11cd6e",
+    "borderStyle": "white",
+    "list": [
+      {
+        "selectedIconPath": "images/wendang.png",
+        "iconPath": "images/wendang.png",
+        "pagePath": "pages/logs/logs",
+        "text": "参加"
+      },
+      {
+        "selectedIconPath": "images/tianjia.png",
+        "iconPath": "images/tianjia.png",
+        "pagePath": "pages/index/index",
+        "text": "发布"
+      },
+      {
+        "selectedIconPath": "images/yonghu.png",
+        "iconPath": "images/yonghu.png",
+        "pagePath": "pages/test/test",
+        "text": "用户"
+      }
+    ]
+  }
+}
