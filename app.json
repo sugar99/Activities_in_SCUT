@@ -1,39 +1,54 @@
 {
   "pages": [
+    "pages/activity_list/activity_list",
+    "pages/activity_post/activity_post",
+    "pages/user_center/user_center",
+    "pages/activity_info/activity_info",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/test/test"
+    "pages/activity_info/activity_1/activity_1",
+    "pages/activity_info/activity_2/activity_2"
   ],
   "window": {
+    "backgroundColor": "#ffffff",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black"
+    "enablePullDownRefresh": true,
+    "navigationBarBackgroundColor": "#4169e1",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "活在华工"
   },
-  "sitemapLocation": "sitemap.json",
   "tabBar": {
     "color": "#a9b7b7",
-    "selectedColor": "#11cd6e",
+    "selectedColor": "#4169e1",
     "borderStyle": "white",
+    "backgroundColor": "#ffffff",
     "list": [
       {
         "selectedIconPath": "images/wendang.png",
         "iconPath": "images/wendang.png",
-        "pagePath": "pages/logs/logs",
+        "pagePath": "pages/activity_list/activity_list",
         "text": "参加"
       },
       {
         "selectedIconPath": "images/tianjia.png",
         "iconPath": "images/tianjia.png",
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/activity_post/activity_post",
         "text": "发布"
       },
       {
         "selectedIconPath": "images/yonghu.png",
         "iconPath": "images/yonghu.png",
-        "pagePath": "pages/test/test",
+        "pagePath": "pages/user_center/user_center",
         "text": "用户"
       }
     ]
-  }
+  },
+  "networkTimeout": {
+    "request": 1000000,
+    "downloadFile": 1000000,
+    "uploadFile": 1000000,
+    "connectSocket": 1000000
+  },
+  "debug": true,
+  "sitemapLocation": "sitemap.json"
 }
