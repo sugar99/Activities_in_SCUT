@@ -4,8 +4,6 @@
     "pages/activity_post/activity_post",
     "pages/user_center/user_center",
     "pages/activity_info/activity_info",
-    "pages/index/index",
-    "pages/logs/logs",
     "pages/activity_info/activity_1/activity_1",
     "pages/activity_info/activity_2/activity_2"
   ],
