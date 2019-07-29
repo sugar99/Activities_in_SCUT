@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dbpractice.dao.UserDao">
+    <select id="queryUser" resultType="com.example.dbpractice.entity.User" >
+        SELECT `id`,`name`,`address`,`contact`
+        FROM `user`
+    </select>
+    <select id="queryUserById" resultType="com.example.dbpractice.entity.User">
+        SELECT `id`,`name`,`address`,`contact`
+        FROM `user`
+        WHERE `id`=#{uid}
+    </select>
+    <insert id="insertUser" parameterType="com.example.dbpractice.entity.User">
+        INSERT INTO `user`(`id`,`name`,`address`,`contact`)
+        VALUES(#{uid},#{name},#{address},#{contact})
+    </insert>
+    <update id="updateUser" parameterType="com.example.dbpractice.entity.User">
+        update `user`
+        <set>
+            <if test="name!=null">`name`=#{name},</if>
+            <if test="address!=null">`address`=#{address},</if>
+            <if test="contact!=null">`contact`=#{contact}</if>
+        </set>
+        where `id`=#{uid}
+    </update>
+    <delete id="deleteUser">
+        DELETE FROM `user`
+        WHERE `id`=#{uid}
+    </delete>
+</mapper>

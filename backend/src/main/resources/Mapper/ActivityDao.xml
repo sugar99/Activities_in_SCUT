@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dbpractice.dao.ActivityDao">
+    <select id="queryActivity" resultType="com.example.dbpractice.entity.Activity">
+        SELECT *
+        FROM `activity`
+    </select>
+    <select id="queryCertifiedActivity" resultType="com.example.dbpractice.entity.Activity">
+        SELECT *
+        FROM `activity`
+        WHERE `certified`=TRUE
+    </select>
+    <select id="queryActivityById"  resultType="com.example.dbpractice.entity.Activity">
+        SELECT *
+        FROM `activity`
+        WHERE `id`=#{aid}
+    </select>
+    <select id="queryActivityBySponsorId" resultType="com.example.dbpractice.entity.Activity">
+        SELECT `aid`
+        FROM `activity`
+        WHERE `sponsor`=#{s_uid}
+    </select>
+    <insert id="insertActivity" parameterType="com.example.dbpractice.entity.Activity"
+            useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO `activity`
+        VALUES (#{title},#{date},#{place},#{tag},#{desc},#{sponsor},#{certified})
+    </insert>
+    <update id="updateActivity" parameterType="com.example.dbpractice.entity.Activity">
+        UPDATE `activity`
+        <set>
+            <if test="title!=null">`title`=#{title}</if>
+            <if test="date!=null">`date`=#{date}</if>
+            <if test="place!=null">`place`=#{place}</if>
+            <if test="tag!=null">`tag`=#{tag}</if>
+            <if test="desc!=null">`desc`=#{desc}</if>
+            <if test="sponsor!=null">`sponsor`=#{sponsor}</if>
+            <if test="certified!=null">`certified`=#{certified}</if>
+        </set>
+        WHERE `id`=#{id}
+    </update>
+    <delete id="deleteActivity">
+        DELETE FROM `activity`
+        WHERE `id`=#{aid}
+    </delete>
+</mapper>
