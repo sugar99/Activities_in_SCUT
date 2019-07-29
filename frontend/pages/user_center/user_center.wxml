@@ -1,0 +1,25 @@
+<!--user_center.wxml-->
+
+<view class="head">
+  <view class="head_item" bindtap="enrolledActivities">已参与</view>
+  <view class="ring"></view>
+  <view class="head_item" bindtap="releasedActivities">已发布</view>
+</view>
+
+<view class='help'>
+ 
+  <view class="help_item" wx:for="{{activities}}" wx:for-item="activity" wx:key="{{index}}">
+    <!-- 标题 -->
+    <view class="title" data-index="{{index + 1}}" catchtap="panel">
+      {{activity.title}}
+    </view>
+    <!-- 内容 -->
+    <view class="detail" wx:if="{{showIndex == index + 1}}">
+      <text>时间：{{activity.time}}\n</text>
+      <text>地点：{{activity.address}}\n</text>
+      <text>主办：{{activity.host}}\n</text>
+      <text>简介：{{activity.content}}\n</text>
+    </view>
+  </view>
+ 
+</view>
