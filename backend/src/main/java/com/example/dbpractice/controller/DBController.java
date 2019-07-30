@@ -1,4 +1,4 @@
-package com.example.dbpractice.web;
+package com.example.dbpractice.controller;
 
 import com.example.dbpractice.entity.Activity;
 import com.example.dbpractice.entity.Participant_Activity;
