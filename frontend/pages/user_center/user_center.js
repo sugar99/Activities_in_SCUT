@@ -16,7 +16,6 @@ Page({
         left: 7,
         total: 21,
         isIn: false,
-        thumbnail: "activity_1.jpg"
       },
       {
         id: 1000001,
@@ -28,7 +27,6 @@ Page({
         left: 7,
         total: 21,
         isIn: false,
-        thumbnail: "activity_2.jpg"
       }
     ],
   },
@@ -77,16 +75,16 @@ Page({
   loadAcitivities: function () {
     var that = this;
     wx.request({
-      url: "localhost:8888/dbadmin/adservice/listactivity", // 接口地址
+      url: "http://localhost:8888/dbpractice/dbadmin/listactivity", // 接口地址
       method: 'GET',
       header: {
         'content-type': 'application/json' //默认值
       },
       // 成功
       success: function (res) {
-        console.log("加载活动列表 成功", res.data);
+        console.log("加载活动列表 成功", res.data.activityList);
         that.setData({
-          activities: res.data
+          activities: res.data.activityList
         });
       },
       // 失败
@@ -120,6 +118,25 @@ Page({
   // 已参与活动
   enrolledActivities: function () {
     console.log("已参与活动");
+    var that = this;
+    wx.request({
+      url: "http://localhost:8888/dbpractice/dbadmin//getactivitybyid", // 接口地址
+      method: 'GET',
+      header: {
+        'content-type': 'application/json' //默认值
+      },
+      // 成功
+      success: function (res) {
+        console.log("加载活动列表 成功", res.data.activityList);
+        that.setData({
+          activities: res.data.activityList
+        });
+      },
+      // 失败
+      fail: function (err) {
+        console.log("加载活动列表 失败", err);
+      }
+    })
   },
 
   // 已发布活动

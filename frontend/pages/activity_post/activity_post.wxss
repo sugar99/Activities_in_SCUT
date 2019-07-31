@@ -1,0 +1,63 @@
+.contentstyle{
+  margin-top:30rpx;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+}
+
+.title{
+   margin-left:30rpx;
+   font-size:60rpx;
+   font-weight:bold;
+}
+
+.header{
+  font-size:40rpx;
+  margin-left:40rpx;
+  margin-top:15rpx;
+}
+
+.titleinput{
+  margin-left:40rpx;
+  margin-right:40rpx;
+  margin-top:5rpx;
+  padding: 0 10rpx;
+  background-color: #fff;
+  border-top: 1rpx solid #d7d6dc;
+  border-bottom: 1rpx solid #d7d6dc;
+  border-left:1rpx solid #d7d6dc;
+  border-right: 1rpx solid #d7d6dc;
+}
+
+.textarea-wrp {
+  margin-left:40rpx;
+  margin-right:40rpx;
+  margin-top:5rpx;
+  padding: 10rpx;
+  background-color: #fff;
+  border-top: 1rpx solid #d7d6dc;
+  border-bottom: 1rpx solid #d7d6dc;
+  border-left:1rpx solid #d7d6dc;
+  border-right: 1rpx solid #d7d6dc;
+}
+
+.choice{
+  margin-left:50rpx;
+}
+
+.textdisplay{
+  margin-left:40rpx;
+  margin-right:40rpx;
+  margin-top:5rpx;
+  padding: 0 10rpx;
+  background-color: #fff;
+  border-top: 1rpx solid #d7d6dc;
+  border-bottom: 1rpx solid #d7d6dc;
+  border-left:1rpx solid #d7d6dc;
+  border-right: 1rpx solid #d7d6dc;
+}
+
+.buttonstyle{
+  margin-top:15rpx;
+  margin-left:40rpx;
+  margin-right:40rpx;
+}

@@ -1,2 +1,13 @@
-<!--pages/activity_info/activity_1/activity_1.wxml-->
-<text>pages/activity_info/activity_1/activity_1.wxml</text>
+<view class="style">
+<view class="title">{{title}}</view>
+<view class="text">{{name}}</view>
+<view class="subtext">{{date}}</view>
+<view class="subtext">{{place}}</view>
+<view class="subtext">{{details}}</view>
+</view>
+<view class="signstyle">
+<view class="subtext">报名：{{count}}/{{all}}</view>
+<view class="buttonstyle">
+<button bindtap="signupact">我要报名</button>
+</view>
+</view>

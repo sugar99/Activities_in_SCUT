@@ -127,15 +127,15 @@ Page({
         "Content-Type": "application/x-www-form-urlencoded" //默认值
       },
       method: "POST",
-      data: Util.json2Form({
+      data: {
         id: 23333333,
         title: "活动一",
-        date: 2019-7-29,
-        place: "华南理工大学",
-        desc: "测试",
+        // date: 2019-7-29,
+        // place: "华南理工大学",
+        // desc: "测试",
         sponsor: "活在华工小组",
-        certified: 1
-      }),
+        // certified: 1
+      },
       complete: function (res) {
         // TODO:
         // that.setData({
@@ -158,6 +158,16 @@ Page({
   // 活动排序
   sortActivities: function() {
     console.log("活动排序");
+    var data = {
+      id: 23333333,
+      title: "活动一",
+      date: 2019 - 7 - 29,
+      place: "华南理工大学",
+      desc: "测试",
+      sponsor: "活在华工小组",
+      certified: 1
+    };
+    console.log(data);
   },
 
   // 参与退出活动

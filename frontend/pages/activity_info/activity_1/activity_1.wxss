@@ -1,1 +1,37 @@
 /* pages/activity_info/activity_1/activity_1.wxss */
+.style{
+  height:60vh;
+  margin-left:40rpx;
+  margin-right:40rpx;
+  margin-top:20rpx;
+}
+
+.title{
+  font-size: 50rpx;
+  font-weight: bold;
+}
+
+.text{
+  margin-left:20rpx;
+  margin-top:20rpx;
+  font-size:50rpx;
+}
+
+.subtext{
+  margin-left:20rpx;
+  margin-top:20rpx;
+  font-size:30rpx;
+}
+
+.signstyle{
+  height:40vh;
+  margin-left:40rpx;
+  margin-right:40rpx;
+  margin-top:20rpx;
+}
+
+.buttonstyle{
+  margin-top:15vh;
+  margin-left:40rpx;
+  margin-right:40rpx;
+}

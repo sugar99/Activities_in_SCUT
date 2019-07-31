@@ -1,10 +1,16 @@
 // pages/activity_info/activity_1/activity_1.js
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
+    title:'活动详情',
+    name:'讲座',
+    date:'2019-09-01',
+    place:'大学城校区 学术大讲堂',
+    details:'活动详情：本学期第一场讲座',
+    count:7,
+    all:21,
+  },
+
+  signupact:function(e){
 
   },
 
