@@ -1,4 +1,4 @@
-package com.example.dbpractice.controller;
+package com.example.dbpractice.web;
 
 import com.example.dbpractice.entity.Activity;
 import com.example.dbpractice.entity.Participant_Activity;
@@ -7,6 +7,8 @@ import com.example.dbpractice.service.DBService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,9 +42,21 @@ public class DBController {
     }
 
     //新增用户
-    @RequestMapping(value = "/adduser",method = RequestMethod.POST)
-    private Map<String,Object> addUser(@RequestBody User userToAdd){
+    @RequestMapping(value = "/adduser",method = RequestMethod.GET)
+    private Map<String,Object> addUser(HttpServletRequest request, HttpServletResponse response){
         Map<String, Object> modelMap = new HashMap<>();
+        //组装出user实体
+        String uid = request.getParameter("uid");
+        String name = request.getParameter("name");
+        String address = request.getParameter("address");
+        String contact = request.getParameter("contact");
+        System.out.println(uid);
+        System.out.println(name);
+        System.out.println(address);
+        System.out.println(contact);
+
+        User userToAdd = new User(request.getParameter("uid"),request.getParameter("name"),
+                request.getParameter("address"),request.getParameter("contact"));
         modelMap.put("success", DBService.addUser(userToAdd));
         return modelMap;
     }
@@ -86,8 +100,8 @@ public class DBController {
 
     //新增活动
     @RequestMapping(value = "/addactivity",method = RequestMethod.POST)
-    // TODO: 修改RequestBody为RequestParam以通过小程序POST请求
-    private Map<String,Object> addUser(@RequestParam Activity activityToAdd){
+    //把这里的@RequestBody
+    private Map<String,Object> addUser(@RequestBody  Activity activityToAdd){
         Map<String, Object> modelMap = new HashMap<>();
         modelMap.put("success", DBService.addActivity(activityToAdd));
         return modelMap;
