@@ -45,3 +45,85 @@
   font-size: 25rpx;
   line-height: 40rpx;
 }
+
+/*设置头像格式*/
+.avatarStyle {
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 50%;
+  /* box-shadow: 0px 5px 2px #888888; */
+}
+
+/*设置头像位置*/
+.avatarPosition{
+  display: table;
+  position: relative;
+  padding-top: 50rpx;
+  margin: 0 auto;
+}
+
+.username{  
+  text-align: center;
+  margin-top: 20rpx;
+  margin-bottom: 30rpx;
+}
+
+.page_bd{
+  padding: 0px;
+  background-color: snow;
+}
+
+.body_head{
+  height: 80rpx;
+  border-bottom: 1px solid gray;
+}
+
+.display_show{
+  display: block;
+  border: 1px solid  beige;
+  padding:5px 0px;
+}
+
+.display_hide{
+  display: none;
+}
+
+.border1{
+  border-bottom: 1px solid gray;
+}
+
+.border2{
+  padding-bottom: 10rpx;
+  border-bottom: 1px solid rgb(196, 196, 189);
+}
+
+.border3{
+  border: 1px solid #d4cece;
+}
+
+.name {
+  font-size: 33rpx;
+  color: #2f2f2f;
+  float: left;
+  margin-top: 20rpx
+}
+
+.nameicon {
+  width: 50rpx;
+  height: 30rpx;
+  float: right;
+  margin-top: 20rpx;
+  margin-right: 20rpx;
+}
+
+.button{
+  width: 300rpx;
+  height: 50rpx;
+  font-size: 30rpx;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}

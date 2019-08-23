@@ -4,8 +4,22 @@ var app = getApp()
 
 Page({
   data: {
-    showIndex: 0,
-    activities: [
+    showIndex1: 0,
+    showIndex2: 0,
+    
+    isSignActivitiesFold: false,
+    isPostActivitiesFold: false,
+    isDepartmentsFold: false,
+
+    avatar: '/images/lovely_girl.jpg',
+    username: 'username',
+
+    icon1: '/images/upicon.png',
+    icon2: '/images/upicon.png',
+    icon3: '/images/upicon.png',
+
+    // 已参加的活动
+    activities_sign: [
       {
         id: 1000000,
         title: "微软亚洲研究院创新论坛2019",
@@ -13,7 +27,7 @@ Page({
         address: "北京微软大厦",
         content: "创新汇",
         host: "微软亚研",
-        left: 7,
+        signed: 7,
         total: 21,
         isIn: false,
       },
@@ -24,24 +38,129 @@ Page({
         address: "上海世博中心",
         content: "二十一世纪的计算大会",
         host: "微软亚研",
-        left: 7,
+        signed: 7,
         total: 21,
         isIn: false,
       }
     ],
+
+    // 已发布的活动
+    activities_post: [
+      {
+        id: 1000002,
+        title: "计算机视觉应用冬季会议",
+        time: "2020-03-02",
+        address: "夏威夷",
+        content: "计算机视觉应用方面交流会",
+        host: "美国",
+        signed: 7,
+        total: 21,
+        isIn: false,
+      },
+      {
+        id: 1000003,
+        title: "美国人工智能协会年会",
+        time: "2020-01-27",
+        address: "夏威夷",
+        content: "人工智能领域重要会议",
+        host: "美国人工智能协会",
+        signed: 7,
+        total: 21,
+        isIn: false,
+      }
+    ],
+
+    // 已加入的组织
+    departments: ["ISO","IEC","ITU"]
   },
 
-  // 折叠标签栏
-  panel: function (e) {
-    if (e.currentTarget.dataset.index != this.data.showIndex) {
+  // 加载已参加的活动
+  loadSignActivities: function () {
+    if (this.data.isSignActivitiesFold) {
       this.setData({
-        showIndex: e.currentTarget.dataset.index
+        isSignActivitiesFold: false,
+        icon1: '/images/upicon.png'
+      })
+    }
+    else {
+      this.setData({
+        isSignActivitiesFold: true,
+        icon1: '/images/downicon.png'
+      })
+    }
+  },
+
+  // 加载已发布的活动
+  loadPostActivities: function () {
+    if (this.data.isPostActivitiesFold) {
+      this.setData({
+        isPostActivitiesFold: false,
+        icon2: '/images/upicon.png'
+      })
+    }
+    else {
+      this.setData({
+        isPostActivitiesFold: true,
+        icon2: '/images/downicon.png'
+      })
+    }
+  },
+
+  // 加载已加入的组织
+  loadDepartments: function () {
+    if (this.data.isDepartmentsFold) {
+      this.setData({
+        isDepartmentsFold: false,
+        icon3: '/images/upicon.png'
+      })
+    }
+    else {
+      this.setData({
+        isDepartmentsFold: true,
+        icon3: '/images/downicon.png'
+      })
+    }
+  },
+
+  // 折叠或展开标签栏
+  loadSignActivitiesPanel: function(e) {
+    if (e.currentTarget.dataset.index != this.data.showIndex1) {
+      this.setData({
+        showIndex1: e.currentTarget.dataset.index
       })
     } else {
       this.setData({
-        showIndex: 0
+        showIndex1: 0
       })
     }
+  },
+
+  // 折叠或展开标签栏
+  loadPostActivitiesPanel: function (e) {
+    if (e.currentTarget.dataset.index != this.data.showIndex2) {
+      this.setData({
+        showIndex2: e.currentTarget.dataset.index
+      })
+    } else {
+      this.setData({
+        showIndex2: 0
+      })
+    }
+  },
+
+  // 跳转查看用户信息
+  loadInfo: function () {
+    wx.navigateTo({
+      url: '../user_info/user_info'
+    })
+  },
+
+  // TODO：考虑多个活动
+  // 跳转查看报名名单
+  loadSign: function () {
+    wx.navigateTo({
+      url: '../user_list/user_list'
+    })
   },
 
   // 加载活动列表
@@ -116,7 +235,7 @@ Page({
   },
 
   // 已参与活动
-  enrolledActivities: function () {
+  signActivities: function () {
     console.log("已参与活动");
     var that = this;
     wx.request({
@@ -140,7 +259,9 @@ Page({
   },
 
   // 已发布活动
-  releasedActivities: function () {
+  postActivities: function () {
     console.log("已发布活动");
   },
+
 })
+

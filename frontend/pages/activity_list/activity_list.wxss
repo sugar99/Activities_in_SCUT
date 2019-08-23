@@ -74,7 +74,7 @@
   position: absolute;
   font-size: 25rpx;
   margin-left: 600rpx;
-  margin-top: 70rpx;
+  margin-top: 100rpx;
   border: #4169e1;
   color: #4169e1;
 }

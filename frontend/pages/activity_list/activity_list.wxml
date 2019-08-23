@@ -2,12 +2,16 @@
 
 <!-- 顶部导航 -->
 <view class="tab_bar">
-  <view class="tab" bindtap="filterActivities">
-    筛选
+  <view class="tab">
+    <picker bindchange="bindTagPickerChange" value="{{idxOfTfag}}" range="{{tag}}">
+      <view class="textdisplay">{{classification}}</view>
+    </picker>
   </view>
   <view class="ring"></view>
   <view class="tab" bindtap="sortActivities">
-    排序
+    <picker bindchange="bindSortPickerChange" value="{{idxOfTSort}}" range="{{sort}}">
+      <view class="textdisplay">{{order}}</view>
+    </picker>
   </view>
 </view>
 
@@ -28,20 +32,22 @@
 </view>
 
 <!-- 轮播广告 -->
-<swiper
-  indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}"
-  interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px">
-  <block wx:for="{{activities}}" wx:for-item="activity">
-    <swiper-item>
-      <view class="swiper-item {{item}}">
-        <image src="{{thumbnailUrl}}{{activity.id}}.jpg"></image>
-      </view>
-    </swiper-item>
-  </block>
-</swiper>
-<view class="divide"></view>
+<!-- <swiper -->
+  <!-- indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}" -->
+  <!-- interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px"> -->
+  <!-- <block wx:for="{{activities}}" wx:for-item="activity"> -->
+    <!-- <swiper-item> -->
+      <!-- <view class="swiper-item {{item}}"> -->
+        <!-- <image src="{{thumbnailUrl}}{{activity.id}}.jpg"></image> -->
+        <!-- <image src="../images/background.jpg"></image> -->
+      <!-- </view> -->
+    <!-- </swiper-item> -->
+  <!-- </block> -->
+<!-- </swiper> -->
+<!-- <view class="divide"></view> -->
 
 <!-- 活动列表 -->
+<view class="divide"></view>
 <block wx:for="{{activities}}" wx:for-item="activity">
   <view class="activity" id="{{activity.id}}">
     <!-- 预览图片 -->
@@ -69,13 +75,15 @@
       </view>
     </view>
     <!-- 剩余人数 -->
-    <button class='left' bindtap="handleActivity">
-      剩 {{activity.left}}
+    <!-- <button class='left' bindtap="handleActivity"> -->
+    <button class='left' bindtap="showActivity">
+      <!-- 剩 {{activity.left}} -->
+      查看
     </button>
     <!-- 共计人数 -->
-    <view class='total'>
-      共 {{activity.total}}
-    </view>
+    <!-- <view class='total'> -->
+      <!-- 共 {{activity.total}} -->
+    <!-- </view> -->
   </view>
   <view class="divide"></view>
 </block>

@@ -1,25 +1,83 @@
 <!--user_center.wxml-->
 
-<view class="head">
-  <view class="head_item" bindtap="enrolledActivities">已参与</view>
-  <view class="ring"></view>
-  <view class="head_item" bindtap="releasedActivities">已发布</view>
+<!--头像和用户名-->
+<view class="border1" bindtap="loadInfo">
+  <view class="avatarPosition"> 
+    <image src="{{avatar}}" class="avatarStyle"></image>
+  </view>
+  <view class="username">
+    <text>{{username}}</text>
+  </view>
 </view>
 
-<view class='help'>
- 
-  <view class="help_item" wx:for="{{activities}}" wx:for-item="activity" wx:key="{{index}}">
-    <!-- 标题 -->
-    <view class="title" data-index="{{index + 1}}" catchtap="panel">
-      {{activity.title}}
-    </view>
-    <!-- 内容 -->
-    <view class="detail" wx:if="{{showIndex == index + 1}}">
-      <text>时间：{{activity.time}}\n</text>
-      <text>地点：{{activity.address}}\n</text>
-      <text>主办：{{activity.host}}\n</text>
-      <text>简介：{{activity.content}}\n</text>
+<!--已参与活动 下拉列表-->
+<view class="page_bd">
+  <!--下拉导航栏目-->
+  <view class="body_head" bindtap="loadSignActivities">
+    <text class="name" decode="{{true}}">&nbsp;&nbsp;已参与的活动</text>
+    <image class='nameicon' src="{{icon1}}"></image>
+  </view>
+  <!--下拉显示条目-->
+  <view class='help' class="{{isSignActivitiesFold?'display_show':'display_hide'}}">
+    <view class="help_item" wx:for="{{activities_sign}}" wx:for-item="activity" wx:key="{{index}}">
+      <!-- 标题 -->
+      <view class="title border2" data-index="{{index + 1}}" catchtap="loadSignActivitiesPanel">
+          {{activity.title}}
+      </view>
+      <!-- 内容 -->
+      <view class="detail border3" wx:if="{{showIndex1 == index + 1}}">
+        <text>时间：{{activity.time}}\n</text>
+        <text>地点：{{activity.address}}\n</text>
+        <text>主办：{{activity.host}}\n</text>
+        <text>人数：{{activity.signed}} / {{activity.total}}\n</text>
+        <!-- <text>简介：{{activity.content}}\n</text> -->
+      </view>
     </view>
   </view>
- 
+</view>
+
+<!--已发布活动 下拉列表-->
+  <view class="page_bd">
+    <!--下拉导航栏-->
+    <view class="body_head" bindtap="loadPostActivities">
+      <text class="name" decode="{{true}}">&nbsp;&nbsp;已发布的活动</text>
+      <image class='nameicon' src="{{icon2}}"></image>
+    </view>
+    <!--下拉显示条目-->
+    <view class='help' class="{{isPostActivitiesFold?'display_show':'display_hide'}}">
+      <view class="help_item" wx:for="{{activities_post}}" wx:for-item="activity" wx:key="{{index}}">
+        <!-- 标题 -->
+        <view class="title border2" data-index="{{index + 1}}" catchtap="loadPostActivitiesPanel">
+          {{activity.title}}
+        </view>
+        <!-- 内容 -->
+        <view class="detail border3" wx:if="{{showIndex2 == index + 1}}">
+          <text>时间：{{activity.time}}\n</text>
+          <text>地点：{{activity.address}}\n</text>
+          <text>主办：{{activity.host}}\n</text>
+          <text>人数：{{activity.signed}} / {{activity.total}}\n</text>
+          <!-- <text>简介：{{activity.content}}\n</text> -->
+          <button type="primary" class="button" bindtap="loadSign">查看名单</button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+<!--加入的组织 下拉列表-->
+<view class="page_bd">
+  <!--下拉导航栏-->
+  <view class="body_head" bindtap="loadDepartments">
+    <text class="name" decode="{{true}}">&nbsp;&nbsp;已加入的组织</text>
+    <image class='nameicon' src="{{icon3}}"></image>
+  </view>
+  <!--下拉显示条目-->
+  <view class='help' class="{{isDepartmentsFold?'display_show':'display_hide'}}">
+    <view class="help_item" wx:for="{{departments}}" wx:for-item="department">
+      <!-- 标题 -->
+      <view class="title border2">
+        {{department}}
+      </view>
+    </view>
+  </view>
 </view>

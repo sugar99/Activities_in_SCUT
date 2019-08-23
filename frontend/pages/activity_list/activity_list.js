@@ -43,6 +43,13 @@ Page({
     duration: 500,
     previousMargin: 0,
     nextMargin: 0,
+
+    tag: ['全部显示', '文娱活动', '体育赛事', '知识讲座', '学科竞赛'],
+    idxOfTag: 0,
+    classification: '分类：全部显示',
+    sort: ['按举办时间', '按上限人数', '按报名人数'],
+    idxOfSort: 0,
+    order: '排序：按举办时间',
   },
 
   // 加载活动列表
@@ -120,6 +127,14 @@ Page({
   // 活动筛选
   filterActivities: function() {
     console.log("活动筛选");
+    wx.navigateTo({
+      url: "../classifier/classifier"
+    });
+  },
+
+  // 活动排序
+  sortActivities: function() {
+    console.log("活动排序");
     var that = this;
     wx.request({
       url: "http://localhost:8888/dbpractice/dbadmin/addactivity", // 接口地址
@@ -127,19 +142,19 @@ Page({
         "Content-Type": "application/x-www-form-urlencoded" //默认值
       },
       method: "POST",
-      data: {
+      data: Util.json2Form({
         id: 23333333,
         title: "活动一",
-        // date: 2019-7-29,
-        // place: "华南理工大学",
-        // desc: "测试",
+        date: 2019 - 7 - 29,
+        place: "华南理工大学",
+        desc: "测试",
         sponsor: "活在华工小组",
-        // certified: 1
-      },
+        certified: 1
+      }),
       complete: function (res) {
         // TODO:
         // that.setData({
-          // ...
+        // ...
         // });
         // 失败
         if (res == null || res.data == null) {
@@ -155,21 +170,6 @@ Page({
     })
   },
 
-  // 活动排序
-  sortActivities: function() {
-    console.log("活动排序");
-    var data = {
-      id: 23333333,
-      title: "活动一",
-      date: 2019 - 7 - 29,
-      place: "华南理工大学",
-      desc: "测试",
-      sponsor: "活在华工小组",
-      certified: 1
-    };
-    console.log(data);
-  },
-
   // 参与退出活动
   handleActivity: function() {
     // TODO: btn传参问题
@@ -183,7 +183,31 @@ Page({
     that.data.activities[0].isIn = !that.data.activities[0].isIn;
 
     console.log(that.data.activities[0].isIn);
-  }
+  },
+
+  // 绑定分类选择器的函数
+  bindTagPickerChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      idxOfTag: e.detail.value,
+    })
+    this.setData({
+      classification: '分类：' + this.data.tag[this.data.idxOfTag],
+    })
+    console.log('分类为', this.data.classification)
+  },
+
+  // 绑定排序选择器的函数
+  bindSortPickerChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      idxOfSort: e.detail.value,
+    })
+    this.setData({
+      order: '排序：' + this.data.sort[this.data.idxOfSort],
+    })
+    console.log('排序为', this.data.order)
+  },
 })
 
 var Util = require('../../utils/util.js');

@@ -1,34 +1,58 @@
+<!-- <view class="header-1"> -->
+  <!-- <image class="image-1" src="../../images/background.png"></image> -->
+  <!-- <view class="title-1">基础信息</view> -->
+<!-- </view> -->
 <view class="contentstyle">
-  <view class="title">活动发布</view>
+  <view class="cover">
+    <image class="bg" src='{{poster_frontground}}'></image>
+    <image class="image-0" src='{{poster_background}}' mode='scaleToFill'></image>
+  </view>
   <form bindsubmit="formSubmit" bindreset="formReset">
     <view class="header">活动名称</view>
     <input class="titleinput"></input>
-    <view class="header">活动详情</view>
-    <view class="textarea-wrp">
-      <textarea auto-focus="true" style="height: 5em" />
-    </view>
     <view class="header">举办时间</view>
     <picker mode="date" value="{{date}}" start="2019-01-01" bindchange="bindDateChange">
-      <view class="textdisplay">{{date}}</view>
+      <view class="textdisplay">{{time}}</view>
     </picker>
     <view class="header">举办地点</view>
     <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
-      <view class="textdisplay">{{multiArray[0][multiIndex[0]]}}  {{multiArray[1][multiIndex[1]]}}  {{multiArray[2][multiIndex[2]]}}</view>
+      <view class="textdisplay">{{location}}</view>
     </picker>
-    <view class="header">发布者</view>
-    <radio-group name="release" class="choice">
+    <view class="header">标签分类</view>
+    <picker bindchange="bindPickerChange5" value="{{index5}}" range="{{tag}}">
+      <view class="textdisplay">{{classification}}</view>
+    </picker>
+    <view class="header">活动详情</view>
+    <view class="textarea-wrp">
+      <textarea auto-focus="true" style="height: 8em" />
+    </view>
+    <view class="header">性别筛选</view>
+    <picker bindchange="bindPickerChange4" value="{{index4}}" range="{{sex}}">
+      <view class="textdisplay">{{gender}}</view>
+    </picker>
+    <view class="header">所属筛选</view>
+    <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange1" value="{{multiIndex1}}" range="{{multiArray1}}">
+      <view class="textdisplay">{{organization}}</view>
+    </picker>
+    <view class="header">人数上限</view>
+    <input class="titleinput"></input>
+    <!-- <view class="header">其它要求</view> -->
+    <!-- <view class="textarea-wrp"> -->
+      <!-- <textarea auto-focus="true" style="height: 8em" /> -->
+    <!-- </view> -->
+    <view class="header">申请认证</view>
+    <radio-group name="verification" class="choice" bindchange="applyForVerification">
       <label>
-        <radio value="university" />校级</label>
+        <radio value="true" />是</label>
       <label class="choice">
-        <radio value="college" />院级</label>
-      <label class="choice">
-        <radio value="union" />社团</label>
+        <radio value="false" />否</label>
     </radio-group>
-    <view class="buttonstyle">
-    <button bindtap="uploadphoto">附件上传</button>
-    </view>
-    <view class="buttonstyle">
-    <button bindtap="releaseact">发布活动</button>
-    </view>
   </form>
-  </view>
+  <view class="divide"></view>
+</view>
+<view class="round-click">
+  <navigator url='/pages/addimages/addimages'>发布</navigator>
+</view>
+<view class="round-click-2" bindtap="uploadphoto">
+  <navigator url='/pages/addimages/addimages'>海报</navigator>
+</view>
