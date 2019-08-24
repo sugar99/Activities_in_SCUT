@@ -60,7 +60,7 @@
 }
 
 .host {
-  font-size: 25rpx;
+  font-size: 20rpx;
   color: #999;
   margin-top: 20rpx;
 }

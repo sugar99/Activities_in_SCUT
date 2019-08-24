@@ -20,8 +20,8 @@
    <view class="weui-search-bar__form">
     <view class="weui-search-bar__box">
       <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
-      <input type="text" class="weui-search-bar__input" placeholder="请输入查询内容" value="{{SearchData.value}}" bindinput='SearchInput' bindconfirm="SearchConfirm" />
-      <view class="weui-icon-clear" wx:if="{{SearchData.value.length > 0}}" bindtap="SearchClear">
+      <input type="text" class="weui-search-bar__input" placeholder="请输入查询内容" value="{{SearchData}}" bindinput='SearchInput' bindconfirm="SearchConfirm" />
+      <view class="weui-icon-clear" wx:if="{{SearchData.length > 0}}" bindtap="SearchClear">
         <icon type="clear" size="14"></icon>
       </view>
     </view>
@@ -48,12 +48,11 @@
 
 <!-- 活动列表 -->
 <view class="divide"></view>
-<block wx:for="{{activities}}" wx:for-item="activity">
-  <view class="activity" id="{{activity.id}}">
+<block wx:for="{{activities}}" wx:for-item="activity" wx:key="{{index}}">
+  <view class="activity">
     <!-- 预览图片 -->
     <view class='img'>
-      <image src="{{thumbnailUrl}}{{activity.id}}.jpg" style="width:100px;height:125px;"></image>
-      <!-- <image src="https://www.msra.cn/wp-content/uploads/2018/08/21ccc-lidong-zhou.jpg" style="width:100px;height:100px;"></image> -->
+      <image src="{{activity.poster}}" style="width:100px;height:125px;"></image>
     </view>
     <!-- 活动简介 -->
     <view class="intro" bindtap="showActivity">
@@ -63,27 +62,21 @@
       </view>
       <!-- 时间地点 -->
       <view class="time_address">
-        {{activity.time}}   {{activity.address}}
+        {{activity.time}}   {{activity.place}}
       </view>
       <!-- 负责任人 -->
       <view class="host">
-        {{activity.host}}
+        {{activity.user_name}} {{activity.dept_name}}
       </view>
-      <!-- 活动内容 -->
+      <!-- 活动简介 -->
       <view class="content">
-        {{activity.content}}
+        {{activity.intro}}
       </view>
     </view>
-    <!-- 剩余人数 -->
-    <!-- <button class='left' bindtap="handleActivity"> -->
-    <button class='left' bindtap="showActivity">
-      <!-- 剩 {{activity.left}} -->
+    <!-- 查看详情 -->
+    <button class='left' data-id="{{activity.a_id}}" bindtap="showActivity">
       查看
     </button>
-    <!-- 共计人数 -->
-    <!-- <view class='total'> -->
-      <!-- 共 {{activity.total}} -->
-    <!-- </view> -->
   </view>
   <view class="divide"></view>
 </block>

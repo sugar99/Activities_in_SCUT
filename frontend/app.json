@@ -3,8 +3,6 @@
     "pages/activity_list/activity_list",
     "pages/activity_post/activity_post",
     "pages/activity_info/activity_info",
-    "pages/activity_info/activity_1/activity_1",
-    "pages/activity_info/activity_2/activity_2",
     "pages/user_center/user_center",
     "pages/user_info/user_info",
     "pages/user_list/user_list",

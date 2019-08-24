@@ -1,2 +1,33 @@
-<!--pages/activity_info/activity_info.wxml-->
-<text>pages/activity_info/activity_info.wxml</text>
+<view class="cover">
+  <image class="bg" src='../../images/lecture1.jpg'></image>
+  <image class="image-1" src='../../images/lecture1.jpg' mode='scaleToFill'></image>
+  <view class="style-3">
+    {{title}}
+  </view>
+  <view class="style-6">
+  承办部门：{{user_name}}
+  </view>
+  <view class="style-7">
+  发布用户：{{dept_name}}
+  </view>
+  <view class="style-8">
+  报名人数：{{now}} / {{max}}
+  </view>
+</view>
+<view class="time">
+  <view class="style-2">
+    {{time}}</view>
+  <view class="style-1">
+    {{place}}</view>
+</view>
+<view class="intro">
+  <view class="style-4">
+    详情
+  </view>
+  <view class="style-5">
+    {{intro}}
+  </view>
+</view>
+<view class="round-click" bindtap="signUp">
+报名
+</view>
