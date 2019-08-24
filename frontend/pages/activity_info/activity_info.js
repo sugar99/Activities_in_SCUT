@@ -1,4 +1,7 @@
-// pages/activity_info/activity_1/activity_1.js
+// acticity_info.js
+
+var app = getApp()
+
 Page({
   data: {
     account: 'u_id', // 使用用户标识
@@ -101,5 +104,10 @@ Page({
     else {
       console.log("报名失败");
     }
+  },
+
+  // TODO: 读取头像、微信号、昵称
+  getWechatInfo: function() {
+    // ......
   },
 })

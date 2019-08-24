@@ -152,6 +152,11 @@ Page({
       SearchData: ''
     });
   },
+
+  // TODO: 读取头像、微信号、昵称
+  getWechatInfo: function () {
+    // ......
+  },
 })
 
 var Util = require('../../utils/util.js');

@@ -1,201 +1,295 @@
+// activity_post.js
+
+var app = getApp()
 
 Page({
   data:{
-    poster_frontground: '../../images/lecture1.jpg',
-    poster_background: '../../images/lecture1.jpg',
-    
-    title: '请填写',
-    time: '请选择',
-    location: '请选择',
-    classification: '请选择',
-    intro: '请填写',
-    gender: '请选择',
-    organization: '请选择',
-    maximum: '请填写',
-    verification: false,
+    account: 'u_id',
 
-    multiArray: [['五山校区', '大学城校区'], ['逸夫人文馆', '34号楼', '33号楼', '海丽文体中心', '博学楼'], ['报告厅1', '报告厅2']],
-    sex: ['不限', '男', '女'],
-    tag: ['文娱活动', '体育赛事', '知识讲座', '学科竞赛'],
-    multiArray1: [['不限', '2016级', '2017级', '2018级', '2019级'], ['不限', '软件学院', '计算机学院', '电信学院', '医学院'], ['不限', '软件工程', '软件工程卓越班', '软件工程中澳班'], ],
-    multiIndex: [0, 0, 0],
-    multiIndex1: [0, 0, 0],
-    index:0,
-    index4: 0,
-    index5: 0,
-    index1:0,
-    
-    building:'',
-    room:'',
-    carWin_im:'',
+    activity: {
+      poster: '../../images/lecture1.jpg',
+      
+      title: '',
+      time: '请选择',
+      place: '请选择',
+      tag: '请选择',
+      intro: '',
 
+      gender: '请选择',
+      grade: '请选择',
+      dept_name: '请选择',
+      major: '请选择',
+      description: '',
+      quota: '',
+      verification: false,
+    },
+
+    places: [['五山校区', '大学城校区'], ['逸夫人文馆', '34号楼', '33号楼', '海丽文体中心', '博学楼'], ['报告厅1', '报告厅2']],
+    idxsOfPlaces: [0, 0, 0],
     
+    tags: ['文娱活动', '体育赛事', '知识讲座', '学科竞赛'],
+    idxOfTag: 0,
+
+    genders: ['不限', '男', '女'],
+    idxOfGender: 0,
+
+    grades: ['不限', '2016级', '2017级', '2018级', '2019级'],
+    idxOfGrade: 0,
+
+    departments: ['不限', '软件学院', '计算机学院', '电信学院', '医学院'],
+    idxOfDepartment: 0,
+
+    majors: [['不限'], ['不限', '软件工程', '软件工程卓越班', '软件工程中澳班'], ['不限', '计算机科学与技术全英联合班', '计算机科学与技术全英创新班', '计算机科学与技术', '网络工程', '信息安全'], ['不限', '通信工程', '信息工程', '电子科学与技术'], ['不限', '医学影像技术']],
+    idxOfMajor: 0,
   },
-  formSubmit: function (e) {
-    console.log('form发生了submit事件，携带数据为：', e.detail.value)
-  },
-  formReset: function () {
-    console.log('form发生了reset事件')
-  },
-  bindDateChange:function(e){
-    console.log('picker发送【举办时间】选择改变')
-    console.log(e.detail.value)
+
+  // 标题输入
+  titleInput: function (e) {
+    console.log("标题输入：" + e.detail.value);
+    var temp = this.data.activity;
+    temp.title = e.detail.value;
     this.setData({
-      time:e.detail.value
+      activity: temp
+    });
+  },
+  
+  // 绑定时间选择器的函数
+  bindDatePickerChange: function(e){
+    console.log('picker发送选择改变，携带值为', e.detail.value);
+    var temp = this.data.activity;
+    temp.time = e.detail.value;
+    this.setData({
+      activity: temp
     })
   },
-  bindMultiPickerColumnChange1: function (e) {
-    console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
+
+  // 绑定地点选择器的函数
+  bindMultiPlacesPickerColumnChange: function (e) {
+    console.log('修改的列为', e.detail.column, '，修改的值为', e.detail.value);
     var data = {
-      multiArray1: this.data.multiArray1,
-      multiIndex1: this.data.multiIndex1
+      places: this.data.places,
+      idxsOfPlaces: this.data.idxsOfPlaces
     };
-    data.multiIndex1[e.detail.column] = e.detail.value;
-    switch (e.detail.column) {
-      case 1:
-        switch (data.multiIndex1[1]) {
-          case 1:
-            data.multiArray1[2] = ['不限', '软件工程', '软件工程卓越班', '软件工程中澳班'];
-            break;
-          case 2:
-            data.multiArray1[2] = ['不限', '计算机科学与技术全英联合班', '计算机科学与技术全英创新班', '计算机科学与技术', '网络工程', '信息安全'];
-            break;
-          case 3:
-            data.multiArray1[2] = ['不限', '通信工程', '信息工程', '电子科学与技术'];
-            break;
-          case 4:
-            data.multiArray1[2] = ['不限', '医学影像技术'];
-            break;
-        }
-        data.multiIndex1[2] = 0;
-        break;
-    }
-    this.setData(data);
-    this.setData({
-      organization: this.data.multiArray1[0][this.data.multiIndex1[0]] + ' ' + this.data.multiArray1[1][this.data.multiIndex1[1]] + ' ' + this.data.multiArray1[2][this.data.multiIndex1[2]]
-    })
-  },
-  bindMultiPickerColumnChange: function (e) {
-    console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
-    var data = {
-      multiArray: this.data.multiArray,
-      multiIndex: this.data.multiIndex
-    };
-    data.multiIndex[e.detail.column] = e.detail.value;
+    data.idxsOfPlaces[e.detail.column] = e.detail.value;
     switch (e.detail.column) {
       case 0:
-        switch (data.multiIndex[0]) {
+        switch (data.idxsOfPlaces[0]) {
           case 0:
-            data.multiArray[1] = ['逸夫人文馆', '34号楼', '33号楼', '海丽文体中心', '博学楼'];
-            data.multiArray[2] = ['报告厅1', '报告厅2'];
+            data.places[1] = ['逸夫人文馆', '34号楼', '33号楼', '海丽文体中心', '博学楼'];
+            data.places[2] = ['报告厅1', '报告厅2'];
             break;
           case 1:
-            data.multiArray[1] = ['A1', 'A2', 'A3', 'A4', '学术大讲堂', '音乐厅'];
-            data.multiArray[2] = ['101', '102', '103', '104', '105', '106', '107', '108', '201', '202', '203', '204', '205', '206', '207', '208', '209'];
+            data.places[1] = ['A1', 'A2', 'A3', 'A4', '学术大讲堂', '音乐厅'];
+            data.places[2] = ['101', '102', '103', '104', '105', '106', '107', '108', '201', '202', '203', '204', '205', '206', '207', '208', '209'];
             break;
         }
-        data.multiIndex[1] = 0;
-        data.multiIndex[2] = 0;
+        data.idxsOfPlaces[1] = 0;
+        data.idxsOfPlaces[2] = 0;
         break;
       case 1:
-        switch (data.multiIndex[0]) {
+        switch (data.idxsOfPlaces[0]) {
           case 0:
-            switch (data.multiIndex[1]) {
+            switch (data.idxsOfPlaces[1]) {
               case 0:
-                data.multiArray[2] = ['报告厅1', '报告厅2'];
+                data.places[2] = ['报告厅1', '报告厅2'];
                 break;
               case 1:
-                data.multiArray[2] = ['101', '102', '103', '104', '105', '106', '107', '108', '201', '202', '203', '204', '205', '206', '207', '208', '209'];
+                data.places[2] = ['101', '102', '103', '104', '105', '106', '107', '108', '201', '202', '203', '204', '205', '206', '207', '208', '209'];
                 break;
               case 2:
-                data.multiArray[2] = ['101', '102', '103', '104', '105', '106', '107', '108', '201', '202', '203', '204', '205', '206', '207', '208', '209'];
+                data.places[2] = ['101', '102', '103', '104', '105', '106', '107', '108', '201', '202', '203', '204', '205', '206', '207', '208', '209'];
                 break;
               case 3:
-                data.multiArray[2] = [''];
+                data.places[2] = [''];
                 break;
               case 4:
-                data.multiArray[2] = ['101', '102', '103', '104', '105', '106', '107', '108', '201', '202', '203', '204', '205', '206', '207', '208', '209'];
+                data.places[2] = ['101', '102', '103', '104', '105', '106', '107', '108', '201', '202', '203', '204', '205', '206', '207', '208', '209'];
                 break;
             }
             break;
           case 1:
-            switch (data.multiIndex[1]) {
+            switch (data.idxsOfPlaces[1]) {
               case 0:
-                data.multiArray[2] = ['101', '102', '103', '104', '105', '106', '107', '108', '201', '202', '203', '204', '205', '206', '207', '208', '209'];
+                data.places[2] = ['101', '102', '103', '104', '105', '106', '107', '108', '201', '202', '203', '204', '205', '206', '207', '208', '209'];
                 break;
               case 1:
-                data.multiArray[2] = ['101', '102', '103', '104', '105', '106', '107', '108', '201', '202', '203', '204', '205', '206', '207', '208', '209'];
+                data.places[2] = ['101', '102', '103', '104', '105', '106', '107', '108', '201', '202', '203', '204', '205', '206', '207', '208', '209'];
                 break;
               case 2:
-                data.multiArray[2] = ['101', '102', '103', '104', '105', '106', '107', '108', '201', '202', '203', '204', '205', '206', '207', '208', '209'];
+                data.places[2] = ['101', '102', '103', '104', '105', '106', '107', '108', '201', '202', '203', '204', '205', '206', '207', '208', '209'];
                 break;
               case 3:
-                data.multiArray[2] = ["空中教室", '模拟法庭', '101', '102', '103', '104'];
+                data.places[2] = ["空中教室", '模拟法庭', '101', '102', '103', '104'];
                 break;
               case 4:
-                data.multiArray[2] = [''];
+                data.places[2] = [''];
                 break;
               case 5:
-                data.multiArray[2] = [''];
+                data.places[2] = [''];
                 break;
             }
             break;
         }
-        data.multiIndex[2] = 0;
-        console.log(data.multiIndex);
+        data.idxsOfPlaces[2] = 0;
+        console.log(data.idxsOfPlaces);
         break;
     }
     this.setData(data);
+    var temp = this.data.activity;
+    temp.place = this.data.places[0][this.data.idxsOfPlaces[0]] + ' ' + this.data.places[1][this.data.idxsOfPlaces[1]] + ' ' + this.data.places[2][this.data.idxsOfPlaces[2]];
     this.setData({
-      location: this.data.multiArray[0][this.data.multiIndex[0]] + ' ' + this.data.multiArray[1][this.data.multiIndex[1]] + ' ' + this.data.multiArray[2][this.data.multiIndex[2]]
-    })
+      activity: temp
+    });
   },
-  uploadphoto:function(){
-    console.log("上传活动预览图");
-    var that = this
+
+  // 绑定分类选择器的函数
+  bindTagPickerChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value);
+    this.setData({
+      idxOfTag: e.detail.value,
+    });
+    var temp = this.data.activity;
+    temp.tag = this.data.tags[this.data.idxOfTag];
+    this.setData({
+      activity: temp
+    });
+  },
+
+  // 详情输入
+  introInput: function (e) {
+    console.log("标题输入：" + e.detail.value);
+    var temp = this.data.activity;
+    temp.intro = e.detail.value;
+    this.setData({
+      activity: temp
+    });
+  },
+
+  // 绑定性别选择器的函数
+  bindGenderPickerChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value);
+    this.setData({
+      idxOfGender: e.detail.value,
+    });
+    var temp = this.data.activity;
+    temp.gender = this.data.genders[this.data.idxOfGender];
+    this.setData({
+      activity: temp
+    });
+  },
+
+  // 绑定年级选择器的函数
+  bindGradePickerChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value);
+    this.setData({
+      idxOfGrade: e.detail.value,
+    });
+    var temp = this.data.activity;
+    temp.grade = this.data.grades[this.data.idxOfGrade];
+    this.setData({
+      activity: temp
+    });
+  },
+
+  // 绑定学院选择器的函数
+  bindDepartmentPickerChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value);
+    this.setData({
+      idxOfDepartment: e.detail.value,
+    });
+    var temp = this.data.activity;
+    temp.dept_name = this.data.departments[this.data.idxOfDepartment];
+    this.setData({
+      activity: temp
+    });
+  },
+
+  // 绑定专业选择器的函数
+  bindMajorPickerChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value);
+    this.setData({
+      idxOfMajor: e.detail.value,
+    });
+    var temp = this.data.activity;
+    temp.major = this.data.majors[this.data.idxOfDepartment][this.data.idxOfMajor];
+    this.setData({
+      activity: temp
+    });
+  },
+
+  // 上限输入
+  quotaInput: function (e) {
+    console.log("标题输入：" + e.detail.value);
+    var temp = this.data.activity;
+    temp.quota = e.detail.value;
+    this.setData({
+      activity: temp
+    });
+  },
+
+  // 申请认证
+  applyForVerification: function (e) {
+    console.log('radio-group发送选择改变，携带值为', e.detail.value)
+    var temp = this.data.activity;
+    temp.verification = (e.detail.value === 'true');
+    this.setData({
+      activity: temp
+    });
+  },
+
+  // 上传海报
+  uploadPoster: function(){
+    var that = this;
     wx.chooseImage({
-      count: 1, // 默认9
+      count: 1, // 默认为9
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         var tempFilePaths = res.tempFilePaths
+        var temp = that.data.activity;
+        temp.poster = tempFilePaths;
         that.setData({ 
-          poster_frontground: tempFilePaths,
-          poster_background: tempFilePaths
-        })
+          activity: temp
+        });
       }
     })
   },
-  //绑定性别选择器的函数
-  bindPickerChange4: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      index4: e.detail.value,
-    })
-    this.setData({
-      gender: this.data.sex[this.data.index4],
-    })
+  
+  // 提交活动
+  formSubmit: function () {
+    console.log('form发生了submit事件，携带数据为：');
+    // TODO: 提交活动插this.data.activity进activity表
+    // ......
   },
-  //绑定分类选择器的函数
-  bindPickerChange5: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+
+  // 重置活动
+  formReset: function () {
+    console.log('form发生了reset事件');
+    var temp = {
+      poster: '../../images/lecture1.jpg',
+
+      title: '',
+      time: '请选择',
+      place: '请选择',
+      tag: '请选择',
+      intro: '',
+
+      gender: '请选择',
+      grade: '请选择',
+      dept_name: '请选择',
+      major: '请选择',
+      description: '',
+      quota: '',
+      verification: false,
+    };
     this.setData({
-      index5: e.detail.value,
-    })
-    this.setData({
-      classification: this.data.tag[this.data.index5],
-    })
+      activity: temp
+    });
   },
-  releaseact:function() {
-    
+
+  // TODO: 读取头像、微信号、昵称
+  getWechatInfo: function () {
+    // ......
   },
-  applyForVerification:function(e) {
-    console.log('radio-group发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      verification: e.detail.value === 'true',
-    })
-    console.log('radio-group发送选择改变，携带值为', this.data.verification)
-    console.log('radio-group发送选择改变，携带值为', typeof(this.data.verification))
-  }
 })
