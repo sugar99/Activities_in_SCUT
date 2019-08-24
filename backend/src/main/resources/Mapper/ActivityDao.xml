@@ -24,7 +24,7 @@
     </select>
     <insert id="insertActivity" parameterType="com.example.dbpractice.entity.Activity"
             useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO `activity`
+        INSERT INTO `activity` (`title`,`date`,`place`,`desc`,`sponsor`,`certified`)
         VALUES (#{title},#{date},#{place},#{tag},#{desc},#{sponsor},#{certified})
     </insert>
     <update id="updateActivity" parameterType="com.example.dbpractice.entity.Activity">

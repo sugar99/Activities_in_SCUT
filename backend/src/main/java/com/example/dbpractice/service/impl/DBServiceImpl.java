@@ -37,11 +37,17 @@ public class DBServiceImpl implements DBService {
     @Override
     public boolean addUser(User userToAdd){
         //对传入的User对象空值判断    id和name都不能为空
-        if(userToAdd.getUid()!=null&"".equals(userToAdd.getUid())
-            &&userToAdd.getName()!=null&&"".equals(userToAdd.getName())){
+        // if(userToAdd.getUid()!=null&&"".equals(userToAdd.getUid())
+            // &&userToAdd.getName()!=null&&"".equals(userToAdd.getName())){
+                System.out.println("here");
+        if(true) {
             try{
+                System.out.println("here1");
+
                 int effectedRow = userDao.insertUser(userToAdd);
                 if(effectedRow>0){
+                    System.out.println("here2");
+
                     return true;    //插入成功
                 }else {
                     throw new RuntimeException("新增用户失败！");

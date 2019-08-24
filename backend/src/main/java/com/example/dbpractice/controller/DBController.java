@@ -1,4 +1,4 @@
-package com.example.dbpractice.web;
+package com.example.dbpractice.controller;
 
 import com.example.dbpractice.entity.Activity;
 import com.example.dbpractice.entity.Participant_Activity;
@@ -57,6 +57,7 @@ public class DBController {
 
         User userToAdd = new User(request.getParameter("uid"),request.getParameter("name"),
                 request.getParameter("address"),request.getParameter("contact"));
+
         modelMap.put("success", DBService.addUser(userToAdd));
         return modelMap;
     }
