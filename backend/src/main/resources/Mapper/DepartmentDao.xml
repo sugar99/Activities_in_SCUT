@@ -19,8 +19,8 @@
     <update id="updateDepartment" parameterType="com.example.dbpractice.entity.Department">
         update `department`
         <set>
-            <if test="location!=null">`location`=#{location}</if>
-            <if test="menber_num!=null">`menber_num`=#{menber_num}</if>
+            <if test="location!=null">`location`=#{location},</if>
+            <if test="menber_num!=null">`menber_num`=#{menber_num},</if>
         </set>
         where `dept_name`=#{dept_name}
     </update>

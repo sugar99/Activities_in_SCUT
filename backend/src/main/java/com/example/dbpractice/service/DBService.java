@@ -31,7 +31,9 @@ public interface DBService {
     //以aid查询活动
     Activity getActivityById(int a_id);
     //以publisher的id查询活动
-    List<Activity> getActivityByPublisherId(int u_id);
+    List<Activity> getActivityByPublisherId(String u_id);
+//    //以tag来查询活动
+//    List<Activity> getActivityByTag(String tag);
     //插入活动记录
     boolean addActivity(Activity activity);
     //更新活动记录

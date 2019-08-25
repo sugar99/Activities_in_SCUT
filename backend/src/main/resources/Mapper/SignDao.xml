@@ -26,7 +26,7 @@
         WHERE `a_id`=#{a_id}
     </delete>
     <delete id="deleteSign" parameterType="com.example.dbpractice.entity.Sign">
-        DELETE FROM 'sign'
+        DELETE FROM `sign`
         WHERE `a_id`=#{a_id} and `u_id`=`u_id`
     </delete>
     <select id="hasSign" resultType="com.example.dbpractice.entity.Sign" parameterType="com.example.dbpractice.entity.Sign">

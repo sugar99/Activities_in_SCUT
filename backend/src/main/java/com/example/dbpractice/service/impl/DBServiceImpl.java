@@ -129,27 +129,36 @@ public class DBServiceImpl implements DBService {
         return user;
     }
 
+
+
+
     //activity表操作的实现
     @Override
     public List<Activity> getActivityList() {
         return activityDao.queryActivity();
     }
-
     @Override
     public List<Activity> getOfficialActivity() {
         return activityDao.queryOfficialActivity();
     }
-
     @Override
     public Activity getActivityById(int a_id) {
         return activityDao.queryActivityById(a_id);
     }
-
     @Override
-    public List<Activity> getActivityByPublisherId(int u_id) {
+    public List<Activity> getActivityByPublisherId(String u_id) {
         return activityDao.queryActivityByPublisherId(u_id);
     }
-
+//    @Override
+//    public List<Activity> getActivityByTag(String tag) {
+//        if("文娱活动".equals(tag)||"体育赛事".equals(tag)||"知识讲座".equals(tag)||"学科竞赛".equals(tag)){
+//
+//        }else{
+//            throw RuntimeException("活动类别必须是 文娱活动/体育赛事/知识讲座/学科竞赛 中的一种");
+//        }
+//
+//        return null;
+//    }
     @Override
     public boolean addActivity(Activity activityToAdd) {
         if(activityToAdd.getTitle()==null || "".equals(activityToAdd.getTitle()))
@@ -180,7 +189,6 @@ public class DBServiceImpl implements DBService {
         }
 
     }
-
     @Override
     public boolean modifyActivity(Activity activityToModify) {
         if(activityToModify.getA_id() == null || "".equals(activityToModify.getA_id()))
@@ -200,7 +208,6 @@ public class DBServiceImpl implements DBService {
         }
 
     }
-
     @Override
     public boolean deleteActivity(int a_id) {
         //如果传入的aid存在对应的活动
@@ -218,7 +225,6 @@ public class DBServiceImpl implements DBService {
             throw new RuntimeException("删除活动失败" + e.toString());
         }
     }
-
     @Override
     public Activity makeActivity(HttpServletRequest request) {
         int a_id = Integer.parseInt(request.getParameter("a_id"));
@@ -247,6 +253,9 @@ public class DBServiceImpl implements DBService {
                 constrain_id);
         return activity;
     }
+
+
+
 
     //sign表操作的实现
     @Override

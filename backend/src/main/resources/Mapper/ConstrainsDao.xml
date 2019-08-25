@@ -7,14 +7,17 @@
         SELECT *
         FROM `constrains`
     </select>
+    <insert id="insertConstrains" parameterType="com.example.dbpractice.entity.Constrains">
+        INSERT INTO
+    </insert>
     <update id="updateConstrains" parameterType="com.example.dbpractice.entity.Constrains">
         update `constrains`
         <set>
-            <if test="gender!=null">`gender`=#{gender}</if>
-            <if test="grade!=null">`grade`=#{grade}</if>
-            <if test="major!=null">`major`=#{major}</if>
-            <if test="dept_name!=null">`dept_name`=#{dept_name}</if>
-            <if test="desc!=null">`desc`=#{desc}</if>
+            <if test="gender!=null">`gender`=#{gender},</if>
+            <if test="grade!=null">`grade`=#{grade},</if>
+            <if test="major!=null">`major`=#{major},</if>
+            <if test="dept_name!=null">`dept_name`=#{dept_name},</if>
+            <if test="desc!=null">`desc`=#{desc},</if>
         </set>
         where `c_id`=#{c_id}
     </update>

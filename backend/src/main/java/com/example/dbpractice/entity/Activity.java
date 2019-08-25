@@ -12,7 +12,7 @@ public class Activity {
     private Date time;
     //活动地点
     private String place;
-    //活动类别
+    //活动类别                  //文娱活动 体育赛事 知识讲座 学科竞赛
     private String tag;
     //活动描述 150字以内
     private String intro;

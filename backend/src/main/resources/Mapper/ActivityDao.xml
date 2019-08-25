@@ -22,24 +22,29 @@
         FROM `activity`
         WHERE `publisher`=#{u_id}
     </select>
+    <select id="queryActivityByTag" resultType="com.example.dbpractice.entity.Activity">
+        SELECT *
+        FROM `activity`
+        WHERE `tag`=#{tag}
+    </select>
     <insert id="insertActivity" parameterType="com.example.dbpractice.entity.Activity"
-            useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+            useGeneratedKeys="true" keyColumn="a_id" keyProperty="a_id">
         INSERT INTO `activity` (`title`,`time`,`place`,`tag`,`intro`,`quota`,`publisher`,`organizer`,`official`,`constrain_id`)
         VALUES (#{title},#{time},#{place},#{tag},#{intro},#{quota},#{publisher},#{organizer},#{official},#{constrain_id})
     </insert>
     <update id="updateActivity" parameterType="com.example.dbpractice.entity.Activity">
         UPDATE `activity`
         <set>
-            <if test="title!=null">`title`=#{title}</if>
-            <if test="time!=null">`time`=#{time}</if>
-            <if test="place!=null">`place`=#{place}</if>
-            <if test="tag!=null">`tag`=#{tag}</if>
-            <if test="intro!=null">`intro`=#{intro}</if>
-            <if test="quota!=null">`quota`=#{quota}</if>
-            <if test="publisher!=publisher">`publisher`=#{publisher}</if>
-            <if test="organizer!=null">`organizer`=#{organizer}</if>
-            <if test="official!=null">`official`=#{official}</if>
-            <if test="constrain_id!=null">`constrain_id`=#{constrain_id}</if>
+            <if test="title!=null">`title`=#{title},</if>
+            <if test="time!=null">`time`=#{time},</if>
+            <if test="place!=null">`place`=#{place},</if>
+            <if test="tag!=null">`tag`=#{tag},</if>
+            <if test="intro!=null">`intro`=#{intro},</if>
+            <if test="quota!=null">`quota`=#{quota},</if>
+            <if test="publisher!=publisher">`publisher`=#{publisher},</if>
+            <if test="organizer!=null">`organizer`=#{organizer},</if>
+            <if test="official!=null">`official`=#{official},</if>
+            <if test="constrain_id!=null">`constrain_id`=#{constrain_id},</if>
         </set>
         WHERE `a_id`=#{a_id}
     </update>

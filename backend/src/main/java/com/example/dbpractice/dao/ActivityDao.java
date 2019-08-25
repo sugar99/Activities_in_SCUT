@@ -15,7 +15,10 @@ public interface ActivityDao {
     Activity queryActivityById(int a_id);
 
     //以publisher的id查询活动
-    List<Activity> queryActivityByPublisherId(int u_id);
+    List<Activity> queryActivityByPublisherId(String u_id);
+
+    //以tag查询活动
+    List<Activity> queryActivityByTag(String tag);
     //TODO 以其他字段查询活动
 
     //插入活动记录

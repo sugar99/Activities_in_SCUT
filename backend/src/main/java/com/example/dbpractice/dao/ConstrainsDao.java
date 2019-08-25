@@ -6,7 +6,7 @@ public interface ConstrainsDao {
 
     Constrains queryConstrainsById(int c_id);
 
-//    int insertConstrains(Constrains constrains);
+    int insertConstrains(Constrains constrains);
 
     int updateConstrains(Constrains constrains);
 
