@@ -260,11 +260,45 @@ Page({
   
   // 提交活动
   formSubmit: function () {
+    var that = this;
     console.log('form发生了submit事件');
     // TODO: 提交活动插this.data.activity进activity表
     // ......
     wx.navigateTo({
       url: "../activity_info/activity_info?activity=" + this.data.activity.a_id + "&account=" + this.data.account
+    });
+
+    wx.request({
+      url: "http://localhost:8888/dbpractice/dbadmin/addactivity", // 接口地址
+      method: 'GET', // 请求方法
+      header: {
+        'content-type': 'application/json' // 默认类型
+      },
+      data: {
+        a_id: '',
+        title: "放寒假",
+        time: "2020-01-20",
+        place: "家里",
+        tag: "知识竞赛",
+        intro: "回家哈皮",
+        poster: "http://photocdn.sohu.com/20130925/Img387224863.jpg",
+        quota: 10086,
+        publisher: "LotteWong",
+        organizer: "软件学院",
+        official: true,
+        constrain_id: '',
+      },
+      // 成功
+      success: function (res) {
+        console.log("后端获取活动 √成功", res.data.activityList);
+        that.setData({
+          activities: res.data.activityList
+        });
+      },
+      // 失败
+      fail: function (err) {
+        console.log("后端获取活动 ×失败", err);
+      }
     });
   },
 

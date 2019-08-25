@@ -12,6 +12,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -149,16 +150,17 @@ public class DBServiceImpl implements DBService {
     public List<Activity> getActivityByPublisherId(String u_id) {
         return activityDao.queryActivityByPublisherId(u_id);
     }
-//    @Override
-//    public List<Activity> getActivityByTag(String tag) {
-//        if("文娱活动".equals(tag)||"体育赛事".equals(tag)||"知识讲座".equals(tag)||"学科竞赛".equals(tag)){
-//
-//        }else{
-//            throw RuntimeException("活动类别必须是 文娱活动/体育赛事/知识讲座/学科竞赛 中的一种");
+    //以tag查询活动
+    @Override
+    public List<Activity> getActivityByTag(int tag) {
+//        if ("文娱活动".equals(tag) || "体育赛事".equals(tag) || "知识讲座".equals(tag) || "学科竞赛".equals(tag)) {
+//            return activityDao.queryActivityByTag(tag);
+//        } else {
+//            throw new RuntimeException("活动类别必须是 文娱活动/体育赛事/知识讲座/学科竞赛 中的一种");
 //        }
-//
-//        return null;
-//    }
+        String[] tags = new String[]{"test","文娱活动","体育赛事","知识讲座","学科竞赛"};
+        return activityDao.queryActivityByTag(tags[tag]);
+    }
     @Override
     public boolean addActivity(Activity activityToAdd) {
         if(activityToAdd.getTitle()==null || "".equals(activityToAdd.getTitle()))
@@ -178,6 +180,7 @@ public class DBServiceImpl implements DBService {
 
 
         try {
+            System.out.println("addActivity");
             int effectedRow = activityDao.insertActivity(activityToAdd);
             if (effectedRow > 0) {
                 return true;
@@ -226,19 +229,37 @@ public class DBServiceImpl implements DBService {
         }
     }
     @Override
+    public List<Activity> getActivityByKeyWord(String keyWord) {
+        List<Activity> activityList = activityDao.queryActivity();
+        List<Activity> resultActivities = null;
+        for(Iterator<Activity> it = activityList.iterator(); it.hasNext();){
+            Activity temp =it.next();
+            String title = temp.getTitle();
+            System.out.println(title);
+            if(title.contains(keyWord))
+                resultActivities.add(temp);
+        }
+        System.out.println("here");
+        System.out.println(resultActivities.get(0).getTitle());
+        return resultActivities;
+    }
+
+    @Override
     public Activity makeActivity(HttpServletRequest request) {
-        int a_id = Integer.parseInt(request.getParameter("a_id"));
+        System.out.println("impl1");
         String title =request.getParameter("title");
+        System.out.println("impl2");
         //String转为Date
         DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println("impl3");
         Date time = null;
         try{
             time = fmt.parse(request.getParameter("time"));
-
+            System.out.println("impl4");
         }catch (Exception e){
             System.out.println("String转换为Date不成功"+e.toString());
         }
-
+        System.out.println("impl5");
         String place = request.getParameter("place");
         String tag = request.getParameter("tag");
         String intro = request.getParameter("intro");
@@ -246,11 +267,14 @@ public class DBServiceImpl implements DBService {
         int quota = Integer.parseInt(request.getParameter("quota"));
         String publisher = request.getParameter("publisher");
         String organizer = request.getParameter("organizer");
+        System.out.println("impl6");
         boolean official = request.getParameter("official")=="true" ? true:false;
-        int constrain_id = Integer.parseInt(request.getParameter("constrain_id"));
-
-        Activity activity = new Activity(a_id,title,time,place,tag,intro,poster,quota,publisher,organizer,official,
-                constrain_id);
+//        String temp = request.getParameter("constrain_id");
+//        if(temp!=null && !("".equals(temp))) {
+//            int constrain_id = Integer.parseInt(temp);
+//        }
+        System.out.println("impl7");
+        Activity activity = new Activity(title,time,place,tag,intro,poster,quota,publisher,organizer,official);
         return activity;
     }
 

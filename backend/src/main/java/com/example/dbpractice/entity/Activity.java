@@ -5,7 +5,7 @@ import java.util.Date;
 //活动 实体类
 public class Activity {
     //活动id 自增
-    private Integer a_id;
+    private Integer a_id = null;
     //活动标题
     private String title;
     //活动时间
@@ -46,6 +46,22 @@ public class Activity {
         this.official = official;
         this.constrain_id = constrain_id;
     }
+    //重载的构造函数
+    public Activity(String title, Date time, String place, String tag, String intro, String poster,
+                    int quota, String publisher, String organizer, Boolean official) {
+        this.title = title;
+        this.time = time;
+        this.place = place;
+        this.tag = tag;
+        this.intro = intro;
+        this.poster = poster;
+        this.quota = quota;
+        this.publisher = publisher;
+        this.organizer = organizer;
+        this.official = official;
+    }
+
+
 
 
     //getter

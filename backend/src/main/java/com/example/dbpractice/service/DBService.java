@@ -33,13 +33,15 @@ public interface DBService {
     //以publisher的id查询活动
     List<Activity> getActivityByPublisherId(String u_id);
 //    //以tag来查询活动
-//    List<Activity> getActivityByTag(String tag);
+    List<Activity> getActivityByTag(int tag);
     //插入活动记录
     boolean addActivity(Activity activity);
     //更新活动记录
     boolean modifyActivity(Activity activity);
     //删除活动记录
     boolean deleteActivity(int a_id);
+    //关键词搜索 目前仅支持活动title搜索
+    List<Activity> getActivityByKeyWord(String keyWord);
     //组装Activity实体
     Activity makeActivity(HttpServletRequest request);
 

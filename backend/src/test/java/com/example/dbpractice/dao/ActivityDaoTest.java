@@ -42,12 +42,12 @@ public class ActivityDaoTest {
 
     @Test
     public void insertAcitivity() {
-//        Activity activity = new Activity(null,"华工开学典礼",new Date(),"学术大讲堂","test",
-//                "莘莘学子喜迎开学","http://xxx.com/poster.com",250,"skywalker",
-//                "软件学院",true,1);
-        Activity activity = new Activity(null,"华工退学典礼",new Date(),"学校门口","test",
-                "你被退学了~拜拜","http://xxx.com/poster.com",4,"LotteWong",
-                "软件学院",false,1);
+        Activity activity = new Activity(null,"华工开学典礼",new Date(),"学术大讲堂","文娱活动",
+                "莘莘学子喜迎开学","http://photocdn.sohu.com/20130925/Img387224863.jpg",250,"skywalker",
+                "软件学院",true,1);
+//        Activity activity = new Activity(null,"华工退学典礼",new Date(),"学校门口","test",
+//                "你被退学了~拜拜","http://xxx.com/poster.com",4,"LotteWong",
+//                "软件学院",false,1);
 
         int effectedNum = activityDao.insertActivity(activity);
         assertEquals(1,effectedNum);

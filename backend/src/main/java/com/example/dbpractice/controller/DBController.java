@@ -72,24 +72,39 @@ public class DBController {
     }
     //返回a_id指定的活动
     @RequestMapping(value = "/getactivitybyid",method = RequestMethod.GET)
-    private Map<String,Object> getActivityById(int u_id){
+    private Map<String,Object> getActivityById(int a_id){
         Map<String, Object> modelMap = new HashMap<>();
-        Activity activity = DBService.getActivityById(u_id);
+        Activity activity = DBService.getActivityById(a_id);
         modelMap.put("activity",activity);
         return modelMap;
     }
     //返回u_id指定用户发布的所有活动
-    @RequestMapping(value = "getactivitybypublisherid",method = RequestMethod.GET)
+    @RequestMapping(value = "/getactivitybypublisherid",method = RequestMethod.GET)
     private Map<String,Object> getActivityByPublisherId(String u_id){
         Map<String, Object> modelMap = new HashMap<>();
         List<Activity> activityList = DBService.getActivityByPublisherId(u_id);
         modelMap.put("activityList",activityList);
         return modelMap;
     }
+    //返回tag类别的活动
+    @RequestMapping(value = "/getactivitybytag",method = RequestMethod.GET)
+    public Map<String,Object> getActivityByTag(int tag){
+        Map<String, Object> modelMap = new HashMap<>();
+        List<Activity> activityList = DBService.getActivityByTag(tag);
+        modelMap.put("activityList",activityList);
+        return modelMap;
+    }
+    @RequestMapping(value = "/getactivitybykeyword",method = RequestMethod.GET)
+    public Map<String,Object> getActivityByKeyWord(String keyword){
+        Map<String, Object> modelMap = new HashMap<>();
+        modelMap.put("activityList",DBService.getActivityByKeyWord(keyword));
+        return modelMap;
+    }
     //新增活动
     @RequestMapping(value = "/addactivity",method = RequestMethod.GET)
     private Map<String,Object> addActivity(HttpServletRequest request, HttpServletResponse response){
         Map<String, Object> modelMap = new HashMap<>();
+        System.out.println("controller");
         modelMap.put("success", DBService.addActivity(DBService.makeActivity(request)));
         return modelMap;
     }
