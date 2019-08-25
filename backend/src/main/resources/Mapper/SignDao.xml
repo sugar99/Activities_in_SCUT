@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dbpractice.dao.SignDao">
+    <select id="querySign" resultType="com.example.dbpractice.entity.Sign" >
+        SELECT *
+        FROM `sign`
+    </select>
+    <select id="queryParticipantIdByAid" resultType="java.lang.String">
+        SELECT `u_id`
+        FROM `sign`
+        WHERE `a_id`=#{a_id}
+    </select>
+    <select id="queryActivityIdByUid" resultType="java.lang.Integer">
+        SELECT `a_id`
+        FROM `sign`
+        WHERE `u_id`=#{u_id}
+    </select>
+    <insert id="insertSign" parameterType="com.example.dbpractice.entity.Sign">
+        INSERT INTO `sign`(`a_id`,`u_id`)
+        VALUES (#{a_id},#{u_id})
+    </insert>
+    <delete id="deleteSignByAid">
+        DELETE FROM `sign`
+        WHERE `a_id`=#{a_id}
+    </delete>
+    <delete id="deleteSign" parameterType="com.example.dbpractice.entity.Sign">
+        DELETE FROM 'sign'
+        WHERE `a_id`=#{a_id} and `u_id`=`u_id`
+    </delete>
+    <select id="hasSign" resultType="com.example.dbpractice.entity.Sign" parameterType="com.example.dbpractice.entity.Sign">
+        SELECT *
+        FROM `sign`
+        WHERE `a_id`=#{a_id} and `u_id`=#{u_id}
+    </select>
+</mapper>

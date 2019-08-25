@@ -4,29 +4,44 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.dbpractice.dao.UserDao">
     <select id="queryUser" resultType="com.example.dbpractice.entity.User" >
-        SELECT `id`,`name`,`address`,`contact`
+        SELECT *
         FROM `user`
     </select>
     <select id="queryUserById" resultType="com.example.dbpractice.entity.User">
-        SELECT `id`,`name`,`address`,`contact`
+        SELECT *
         FROM `user`
-        WHERE `id`=#{uid}
+        WHERE `u_id`=#{u_id}
     </select>
-    <insert id="insertUser" parameterType="com.example.dbpractice.entity.User">
-        INSERT INTO `user`(`id`,`name`,`address`,`contact`)
-        VALUES(#{uid},#{name},#{address},#{contact})
+    <select id="queryUserBySchoolId" resultType="com.example.dbpractice.entity.User">
+        SELECT *
+        FROM `user`
+        WHERE `school_id`=#{school_id}
+    </select>
+    <insert id="insertUser" parameterType="com.example.dbpractice.entity.User" >
+        INSERT INTO `user`(`u_id`,`school_id`,`username`,`nickname`,`gender`,`grade`,`major`,`dept_name`,`avatar`,`address`,`phone`,`email`,`isadmin`)
+        VALUES (#{u_id},#{school_id},#{username},#{nickname},#{gender},#{grade},#{major},#{dept_name},#{avatar},#{address},#{phone},#{email},#{isadmin})
     </insert>
     <update id="updateUser" parameterType="com.example.dbpractice.entity.User">
         update `user`
         <set>
-            <if test="name!=null">`name`=#{name},</if>
-            <if test="address!=null">`address`=#{address},</if>
-            <if test="contact!=null">`contact`=#{contact}</if>
+            <if test="school_id!=null">`school_id`=#{school_id}</if>
+            <if test="username!=null">`username`=#{username}</if>
+            <if test="nickname!=null">`nickname`=#{nickname}</if>
+            <if test="gender!=null">`gender`=#{gender}</if>
+            <if test="grade!=null">`grade`=#{grade}</if>
+            <if test="major!=null">`major`=#{major}</if>
+            <if test="dept_name!=null">`dept_name`=#{dept_name}</if>
+            <if test="avatar!=null">`avatar`=#{avatar}</if>
+            <if test="dept_name!=null">`dept_name`=#{dept_name}</if>
+            <if test="address!=null">`address`=#{address}</if>
+            <if test="phone!=null">`phone`=#{phone}</if>
+            <if test="email!=null">`email`=#{email}</if>
+            <if test="isadmin!=null">`isadmin`=#{isadmin}</if>
         </set>
-        where `id`=#{uid}
+        where `u_id`=#{u_id}
     </update>
     <delete id="deleteUser">
         DELETE FROM `user`
-        WHERE `id`=#{uid}
+        WHERE `u_id`=#{u_id}
     </delete>
 </mapper>

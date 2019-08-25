@@ -1,8 +1,6 @@
 package com.example.dbpractice.controller;
 
-import com.example.dbpractice.entity.Activity;
-import com.example.dbpractice.entity.Participant_Activity;
-import com.example.dbpractice.entity.User;
+import com.example.dbpractice.entity.*;
 import com.example.dbpractice.service.DBService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,50 +29,33 @@ public class DBController {
         modelMap.put("userList",userList);
         return modelMap;
     }
-
     //返回uid指定的用户
     @RequestMapping(value = "/getuserbyid",method = RequestMethod.GET)
-    private Map<String,Object> getUserById(String uid){
+    private Map<String,Object> getUserById(String u_id){
         Map<String, Object> modelMap = new HashMap<>();
-        User user = DBService.getUserById(uid);
+        User user = DBService.getUserById(u_id);
         modelMap.put("user",user);
         return modelMap;
     }
-
     //新增用户
     @RequestMapping(value = "/adduser",method = RequestMethod.GET)
     private Map<String,Object> addUser(HttpServletRequest request, HttpServletResponse response){
         Map<String, Object> modelMap = new HashMap<>();
-        //组装出user实体
-        String uid = request.getParameter("uid");
-        String name = request.getParameter("name");
-        String address = request.getParameter("address");
-        String contact = request.getParameter("contact");
-        System.out.println(uid);
-        System.out.println(name);
-        System.out.println(address);
-        System.out.println(contact);
-
-        User userToAdd = new User(request.getParameter("uid"),request.getParameter("name"),
-                request.getParameter("address"),request.getParameter("contact"));
-
-        modelMap.put("success", DBService.addUser(userToAdd));
+        modelMap.put("success", DBService.addUser(DBService.makeUser(request)));
         return modelMap;
     }
-
     //修改用户信息
-    @RequestMapping(value = "/modifyuser",method = RequestMethod.POST)
-    private Map<String,Object> modifyUser(@RequestBody User userToModify){
+    @RequestMapping(value = "/modifyuser",method = RequestMethod.GET)
+    private Map<String,Object> modifyUser(HttpServletRequest request, HttpServletResponse response){
         Map<String, Object> modelMap = new HashMap<>();
-        modelMap.put("success", DBService.modifyUser(userToModify));
+        modelMap.put("success", DBService.modifyUser(DBService.makeUser(request)));
         return modelMap;
     }
-
     //删除用户
     @RequestMapping(value = "/deleteuser",method = RequestMethod.GET)
-    private Map<String,Object> deleteUser(String uid){
+    private Map<String,Object> deleteUser(String u_id){
         Map<String, Object> modelMap = new HashMap<>();
-        modelMap.put("success", DBService.deleteUser(uid));
+        modelMap.put("success", DBService.deleteUser(u_id));
         return modelMap;
     }
 
@@ -89,84 +70,109 @@ public class DBController {
         modelMap.put("activityList",activityList);
         return modelMap;
     }
-
     //返回aid指定的活动
     @RequestMapping(value = "/getactivitybyid",method = RequestMethod.GET)
-    private Map<String,Object> getActivityById(int uid){
+    private Map<String,Object> getActivityById(int u_id){
         Map<String, Object> modelMap = new HashMap<>();
-        Activity activity = DBService.getActivityById(uid);
+        Activity activity = DBService.getActivityById(u_id);
         modelMap.put("activity",activity);
         return modelMap;
     }
-
     //新增活动
-    @RequestMapping(value = "/addactivity",method = RequestMethod.POST)
+    @RequestMapping(value = "/addactivity",method = RequestMethod.GET)
     //把这里的@RequestBody
-    private Map<String,Object> addUser(@RequestBody  Activity activityToAdd){
+    private Map<String,Object> addActivity(HttpServletRequest request, HttpServletResponse response){
         Map<String, Object> modelMap = new HashMap<>();
-        modelMap.put("success", DBService.addActivity(activityToAdd));
+        modelMap.put("success", DBService.addActivity(DBService.makeActivity(request)));
         return modelMap;
     }
-
     //修改活动信息
-    @RequestMapping(value = "/modifyactivity",method = RequestMethod.POST)
-    private Map<String,Object> modifyUser(@RequestBody Activity activityToModify){
+    @RequestMapping(value = "/modifyactivity",method = RequestMethod.GET)
+    private Map<String,Object> modifyActivity(HttpServletRequest request, HttpServletResponse response){
         Map<String, Object> modelMap = new HashMap<>();
-        modelMap.put("success", DBService.modifyActivity(activityToModify));
+        modelMap.put("success", DBService.modifyActivity(DBService.makeActivity(request)));
         return modelMap;
     }
-
     //删除活动
     @RequestMapping(value = "/deleteactivity",method = RequestMethod.GET)
-    private Map<String,Object> deleteActivity(int uid){
+    private Map<String,Object> deleteActivity(int u_id){
         Map<String, Object> modelMap = new HashMap<>();
-        modelMap.put("success", DBService.deleteActivity(uid));
+        modelMap.put("success", DBService.deleteActivity(u_id));
         return modelMap;
     }
 
 
 
-    //针对participant_activity表的可选操作
-    //返回参与关系列表
-    @RequestMapping(value = "/listparticipantactivity",method = RequestMethod.GET)
-    private Map<String,Object> getParticipantActivityList(){
+    //针对sign表的可选操作
+    //返回全部参与关系
+    @RequestMapping(value = "/listsign",method = RequestMethod.GET)
+    private Map<String,Object> getSignList(){
         Map<String, Object> modelMap = new HashMap<>();
-        List<Participant_Activity> paList = DBService.getParticipantActivityList();
-        modelMap.put("paList",paList);
+        List<Sign> signList = DBService.getSignList();
+        modelMap.put("signList",signList);
+        return modelMap;
+    }
+    @RequestMapping(value = "/getparticipantidbyaid",method = RequestMethod.GET)
+    public Map<String,Object> getParticipantIdByAid(int a_id){
+        Map<String, Object> modelMap = new HashMap<>();
+        List<String> participantIdList = DBService.getParticipantIdByAid(a_id);
+        modelMap.put("participantIdList",participantIdList);
+        return modelMap;
+    }
+    @RequestMapping(value = "/getactivityidbyuid",method = RequestMethod.GET)
+    public Map<String,Object> getActivityIdByUid(String u_id){
+        Map<String, Object> modelMap = new HashMap<>();
+        List<Integer> activityIdList = DBService.getActivityIdByUid(u_id);
+        modelMap.put("activityIdList",activityIdList);
+        return modelMap;
+    }
+    @RequestMapping(value = "/addsign",method = RequestMethod.GET)
+    public Map<String,Object> addSign(HttpServletRequest request, HttpServletResponse response){
+        Map<String, Object> modelMap = new HashMap<>();
+        modelMap.put("success", DBService.addSign(DBService.makeSign(request)));
+        return modelMap;
+    }
+    @RequestMapping(value = "/deletesign",method = RequestMethod.GET)
+    public Map<String,Object> deleteSign(HttpServletRequest request, HttpServletResponse response){
+        Map<String, Object> modelMap = new HashMap<>();
+        modelMap.put("success", DBService.deleteSign(DBService.makeSign(request)));
         return modelMap;
     }
 
-    //返回uid指定的用户参与的活动
-    @RequestMapping(value = "/getactivitybyparticipantid",method = RequestMethod.GET)
-    private Map<String,Object> getActivityByParticipantId(String uid){
+
+
+    //针对department表的可选操作
+    @RequestMapping(value = "/listdepartment",method = RequestMethod.GET)
+    private Map<String,Object> getDepartmentList(){
         Map<String, Object> modelMap = new HashMap<>();
-        List<Activity> activityList = DBService.getActivityByParticipantId(uid);
-        modelMap.put("activityList",activityList);
+        List<Department> departmentList = DBService.getDepartmentList();
+        modelMap.put("departmentList",departmentList);
+        return modelMap;
+    }
+    @RequestMapping(value = "/getdepartmentbydeptname",method = RequestMethod.GET)
+    private Map<String,Object> getDepartmentByDeptName(String dept_name){
+        Map<String, Object> modelMap = new HashMap<>();
+        Department department = DBService.getDepartmentByDeptName(dept_name);
+        modelMap.put("department",department);
+        return modelMap;
+    }
+    @RequestMapping(value = "/adddepartment",method = RequestMethod.GET)
+    private Map<String,Object> addDepartment(HttpServletRequest request, HttpServletResponse response){
+        Map<String, Object> modelMap = new HashMap<>();
+        modelMap.put("success", DBService.addDepartment(DBService.makeDepartment(request)));
+        return modelMap;
+    }
+    @RequestMapping(value = "/modifydepartment",method = RequestMethod.GET)
+    private Map<String,Object> modifyDepartment(HttpServletRequest request, HttpServletResponse response){
+        Map<String, Object> modelMap = new HashMap<>();
+        modelMap.put("success", DBService.modifyDepartment(DBService.makeDepartment(request)));
+        return modelMap;
+    }
+    @RequestMapping(value = "/deletedepartment",method = RequestMethod.GET)
+    private Map<String,Object> deleteDepartment(String dept_name){
+        Map<String, Object> modelMap = new HashMap<>();
+        modelMap.put("success", DBService.deleteDepartment(dept_name));
         return modelMap;
     }
 
-    //返回aid指定的活动的参与者
-    @RequestMapping(value = "/getparticipantbyactivityid",method = RequestMethod.GET)
-    private Map<String,Object> getParticipantByActivityId(int aid){
-        Map<String, Object> modelMap = new HashMap<>();
-        List<User> userList = DBService.getParticipantByActivityId(aid);
-        modelMap.put("userList","userList");
-        return modelMap;
-    }
-
-    //新增参与关系
-    @RequestMapping(value = "/addparticipantactivity",method = RequestMethod.POST)
-    private Map<String,Object> addUser(@RequestBody Participant_Activity p_aToAdd){
-        Map<String, Object> modelMap = new HashMap<>();
-        modelMap.put("success", DBService.addParticipantActivity(p_aToAdd));
-        return modelMap;
-    }
-
-    //删除参与关系
-    @RequestMapping(value = "/deleteparticipantactivity",method = RequestMethod.GET)
-    private Map<String,Object> deleteParticipantActivity(Participant_Activity p_aToDelete){
-        Map<String, Object> modelMap = new HashMap<>();
-        modelMap.put("success", DBService.deleteParticipantActivity(p_aToDelete));
-        return modelMap;
-    }
 }

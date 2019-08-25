@@ -7,41 +7,44 @@
         SELECT *
         FROM `activity`
     </select>
-    <select id="queryCertifiedActivity" resultType="com.example.dbpractice.entity.Activity">
+    <select id="queryOfficialActivity" resultType="com.example.dbpractice.entity.Activity">
         SELECT *
         FROM `activity`
-        WHERE `certified`=TRUE
+        WHERE `official`=TRUE
     </select>
     <select id="queryActivityById"  resultType="com.example.dbpractice.entity.Activity">
         SELECT *
         FROM `activity`
-        WHERE `id`=#{aid}
+        WHERE `a_id`=#{a_id}
     </select>
-    <select id="queryActivityBySponsorId" resultType="com.example.dbpractice.entity.Activity">
-        SELECT `aid`
+    <select id="queryActivityByPublisherId" resultType="com.example.dbpractice.entity.Activity">
+        SELECT `a_id`
         FROM `activity`
-        WHERE `sponsor`=#{s_uid}
+        WHERE `publisher`=#{u_id}
     </select>
     <insert id="insertActivity" parameterType="com.example.dbpractice.entity.Activity"
             useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO `activity` (`title`,`date`,`place`,`desc`,`sponsor`,`certified`)
-        VALUES (#{title},#{date},#{place},#{tag},#{desc},#{sponsor},#{certified})
+        INSERT INTO `activity` (`title`,`time`,`place`,`tag`,`intro`,`quota`,`publisher`,`organizer`,`official`,`constrain_id`)
+        VALUES (#{title},#{time},#{place},#{tag},#{intro},#{quota},#{publisher},#{organizer},#{official},#{constrain_id})
     </insert>
     <update id="updateActivity" parameterType="com.example.dbpractice.entity.Activity">
         UPDATE `activity`
         <set>
             <if test="title!=null">`title`=#{title}</if>
-            <if test="date!=null">`date`=#{date}</if>
+            <if test="time!=null">`time`=#{time}</if>
             <if test="place!=null">`place`=#{place}</if>
             <if test="tag!=null">`tag`=#{tag}</if>
-            <if test="desc!=null">`desc`=#{desc}</if>
-            <if test="sponsor!=null">`sponsor`=#{sponsor}</if>
-            <if test="certified!=null">`certified`=#{certified}</if>
+            <if test="intro!=null">`intro`=#{intro}</if>
+            <if test="quota!=null">`quota`=#{quota}</if>
+            <if test="publisher!=publisher">`publisher`=#{publisher}</if>
+            <if test="organizer!=null">`organizer`=#{organizer}</if>
+            <if test="official!=null">`official`=#{official}</if>
+            <if test="constrain_id!=null">`constrain_id`=#{constrain_id}</if>
         </set>
-        WHERE `id`=#{id}
+        WHERE `a_id`=#{a_id}
     </update>
     <delete id="deleteActivity">
         DELETE FROM `activity`
-        WHERE `id`=#{aid}
+        WHERE `a_id`=#{a_id}
     </delete>
 </mapper>
