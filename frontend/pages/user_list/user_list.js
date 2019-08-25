@@ -1,115 +1,71 @@
 // pages/user_list/user_list.js
 
 Page({
-  /**
-   * 页面的初始数据
-   */
   data: {
     showIndex: 0,
+    iconImgUrl: '/images/upicon.png',
     pre:{},
     next:{},
     deleteOrNot:false,
     returnOrNot:false,
     participants:[
       {
-        imgUrl:'/images/MaYun.jpg',
-        nickname:'996福报',
-        name:'马云',
-        student_number:123,
-        campus:'1号',
-        academy:'不知',
-        major:'资本家',
-        grade:'很老',
-        sex:'男',
-        phoneNumber:576879868,
-        mailBox:'79686329@qq.com',
-        iconImgUrl: '/images/upicon.png'
-      },
-      {
-        imgUrl: '/images/WangJianLin.jpg',
-        nickname :'1个亿小目标',
-        name: '王健林',
-        student_number: 124,
-        campus: '2号',
-        academy: '不知',
-        major: '资本家',
-        grade: '很老',
-        sex: '男',
-        phoneNumber: 8576899432,
-        mailBox: '987685678@qq.com',
-        iconImgUrl: '/images/upicon.png'
-      },
-      {
-        imgUrl: '/images/LiuQiangDong.jpg',
+        avatar: '/images/LiuQiangDong.jpg',
         nickname :'不知妻美',
-        name: '刘强东',
+        username: '刘强东',
         student_number: 125,
-        campus: '3号',
-        academy: '不知',
-        major: '资本家',
         grade: '很老',
-        sex: '男',
-        phoneNumber: 986775463,
-        mailBox: '321435343@qq.com',
-        iconImgUrl: '/images/upicon.png'
+        department: '不知',
+        major: '资本家',
+        gender: '男',
+        phone: 986775463,
+        email: '321435343@qq.com',
       }
     ]
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  // 页面加载名单
+  onLoad: function () {
+    console.log("页面加载名单");
+    wx.showLoading({
+      title: '努力加载中...',
+    });
+    this.loadParticipants();
+    wx.hideLoading();
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
+  // 下拉更新名店
   onPullDownRefresh: function () {
-
+    console.log("下拉更新活动");
+    wx.showNavigationBarLoading();
+    setTimeout(() => {
+      this.loadParticipants();
+      wx.hideNavigationBarLoading();
+      wx.stopPullDownRefresh();
+    }, 2000);
   },
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  // 后端获取名单
+  loadParticipants: function () {
+    var that = this;
+    wx.request({
+      url: "TODO: $后端获取名单接口", // 接口地址
+      method: 'GET', // 请求方法
+      header: {
+        'content-type': 'application/json' // 默认类型
+      },
+      // 成功
+      success: function (res) {
+        console.log("后端获取名单 √成功", "$后端获取名单列表");
+        that.setData({
+          participants: res.data
+        });
+      },
+      // 失败
+      fail: function (err) {
+        console.log("后端获取名单 ×失败", err);
+      }
+    });
   },
 
   // 折叠标签栏
@@ -131,7 +87,7 @@ Page({
     }
   },
 
-  //删除指定数组项
+  // 删除指定数组项
   delete: function(e){
     var index = e.currentTarget.dataset.index;
     var partici = this.data.participants;
@@ -141,38 +97,40 @@ Page({
       deleteOrNot: true,
       pre: pre1
     })
+    // TODO: 后端活动剔除用户
+    // ......
   },
 
-//返回上一步
-returnPre:function(){
-  var that = this;
-  if(that.data.deleteOrNOt){
-    var partici = that.data.participants;
-    var pre2 = that.data.pre;
-    partici.push(pre);
-    that.setData({
-      participants: partici,
-      returnOrNot: true,
-      deleteOrNot: false
-    })
-  } 
-},
+  // 返回上一步
+  returnPre:function(){
+    var that = this;
+    if(that.data.deleteOrNOt){
+      var partici = that.data.participants;
+      var pre2 = that.data.pre;
+      partici.push(pre);
+      that.setData({
+        participants: partici,
+        returnOrNot: true,
+        deleteOrNot: false
+      })
+    } 
+  },
 
-//返回下一步
-returnNext:function(){
-  var that = this;
-  if (that.data.returnOrNOt) {
-    var partici = that.data.participants;
-    partici.splice(partici.length-1,1);
-    that.setData({
-      participants: partici,
-      returnOrNot: false
-    })
-  }
-},
+  // 返回下一步
+  returnNext:function(){
+    var that = this;
+    if (that.data.returnOrNOt) {
+      var partici = that.data.participants;
+      partici.splice(partici.length-1,1);
+      that.setData({
+        participants: partici,
+        returnOrNot: false
+      })
+    }
+  },
 
-//导出用户列表数据
-  loadUsers:function(){
+  // 导出用户列表数据
+  outportUsers:function(){
 
   }
 

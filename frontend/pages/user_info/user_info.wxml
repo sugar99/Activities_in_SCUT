@@ -2,102 +2,105 @@
 
 <form bindsubmit="formSubmit" bindreset="formReset">
 
-<!--头像部分-->
-<view class="avatarBox" bindtap="setPhotoInfo">
-     <text class="name">头像</text>
-     <view>
-        <image class="userinfo-avatar" src="{{imgUrl}}" background-size="cover"></image>
-        <image class="nameicon" src="/images/righticon.png"></image>
-     </view>
-</view>
+  <!--头像部分-->
+  <view class="avatarBox" bindtap="setPhotoInfo">
+      <text class="name">头像</text>
+      <view>
+          <image class="userinfo-avatar" src="{{imgUrl}}" background-size="cover"></image>
+          <image class="nameicon" src="/images/righticon.png"></image>
+      </view>
+  </view>
 
-<!--昵称部分  -->
-<view class='namebox'>
-  <text class='name'>昵称</text>
-  <image class='nameicon' src='/images/righticon.png'></image>
-  <input class='nametext'></input>
-</view>
+  <!--昵称部分  -->
+  <view class='namebox'>
+    <text class='name'>昵称</text>
+    <image class='nameicon' src='/images/righticon.png'></image>
+    <input class='nametext'></input>
+  </view>
 
-<!--性别部分  -->
-<view class="namebox">
-  <picker bindchange="bindPickerChange4" value="{{index4}}" range="{{sex}}">
-    <view class="name">
-      <text decode="{{true}}">性别&nbsp;&nbsp;&nbsp;</text>{{sex[index4]}}
-    </view>
-  </picker>
-  <image class='nameicon' src='/images/righticon.png'></image>
-</view>
-
-<!--姓名部分  -->
+  <!--姓名部分  -->
   <view class='namebox'>
     <text class='name'>姓名</text>
     <image class='nameicon' src='/images/righticon.png'></image>
     <input class='nametext'></input>
   </view>
 
-<!--学号部分  -->
+  <!--学号部分  -->
   <view class='namebox'>
     <text class='name'>学号</text>
     <image class='nameicon' src='/images/righticon.png'></image>
     <input type='number' class='nametext'></input>
   </view>
 
-<!--校区部分  -->
-<view class="namebox">
-  <picker bindchange="bindPickerChange" value="{{index}}" range="{{campus}}">
-    <view class="name">
-      <text decode="{{true}}">校区&nbsp;&nbsp;&nbsp;</text>{{campus[index]}}
-    </view>
-  </picker>
-  <image class='nameicon' src='/images/righticon.png'></image>
-</view>
-
-<!--学院部分  -->
-<view class="namebox">
-  <picker bindchange="bindPickerChange1" value="{{index1}}" range="{{academy}}">
-    <view class="name">
-      <text decode="{{true}}">学院&nbsp;&nbsp;&nbsp;</text>{{academy[index1]}}
-    </view>
-  </picker>
-  <image class='nameicon' src='/images/righticon.png'></image>
-</view>
-
-<!--专业部分  -->
-<view class="namebox">
-  <picker bindchange="bindPickerChange2" value="{{index2}}" range="{{major}}">
-    <view class="name">
-      <text decode="{{true}}">专业&nbsp;&nbsp;&nbsp;</text>{{major[index2]}}
-    </view>
+  <!--性别部分  -->
+  <view class="namebox">
+    <picker bindchange="bindPickerChange4" value="{{index4}}" range="{{sex}}">
+      <view class="name">
+        <text decode="{{true}}">性别&nbsp;&nbsp;&nbsp;</text>{{sex[index4]}}
+      </view>
+    </picker>
     <image class='nameicon' src='/images/righticon.png'></image>
-  </picker> 
-</view>
+  </view>
 
-<!--年级部分  -->
-<view class="namebox">
-  <picker bindchange="bindPickerChange3" value="{{index3}}" range="{{grade}}">
-    <view class="name">
-      <text decode="{{true}}">年级&nbsp;&nbsp;&nbsp;</text>{{grade[index3]}}
-    </view>
+  <!--校区部分  -->
+  <!-- <view class="namebox"> -->
+    <!-- <picker bindchange="bindPickerChange" value="{{index}}" range="{{campus}}"> -->
+      <!-- <view class="name"> -->
+        <!-- <text decode="{{true}}">校区&nbsp;&nbsp;&nbsp;</text>{{campus[index]}} -->
+      <!-- </view> -->
+    <!-- </picker> -->
+    <!-- <image class='nameicon' src='/images/righticon.png'></image> -->
+  <!-- </view> -->
+
+  <!--年级部分  -->
+  <view class="namebox">
+    <picker bindchange="bindPickerChange3" value="{{index3}}" range="{{grade}}">
+      <view class="name">
+        <text decode="{{true}}">年级&nbsp;&nbsp;&nbsp;</text>{{grade[index3]}}
+      </view>
+      <image class='nameicon' src='/images/righticon.png'></image>
+    </picker> 
+  </view>
+
+  <!--学院部分  -->
+  <view class="namebox">
+    <picker bindchange="bindPickerChange1" value="{{index1}}" range="{{academy}}">
+      <view class="name">
+        <text decode="{{true}}">学院&nbsp;&nbsp;&nbsp;</text>{{academy[index1]}}
+      </view>
+    </picker>
     <image class='nameicon' src='/images/righticon.png'></image>
-  </picker> 
-</view>
+  </view>
 
-<!--手机号部分  -->
+  <!--专业部分  -->
+  <view class="namebox">
+    <picker bindchange="bindPickerChange2" value="{{index2}}" range="{{major}}">
+      <view class="name">
+        <text decode="{{true}}">专业&nbsp;&nbsp;&nbsp;</text>{{major[index2]}}
+      </view>
+      <image class='nameicon' src='/images/righticon.png'></image>
+    </picker> 
+  </view>
+
+  <!--手机号部分  -->
   <view class='namebox'>
     <text class='name'>手机号</text>
     <image class='nameicon' src='/images/righticon.png'></image>
     <input class='nametext' type='number'></input>
   </view>
 
-<!--邮箱号部分  -->
+  <!--邮箱号部分  -->
   <view class='namebox'>
     <text class='name'>邮箱号</text>
     <image class='nameicon' src='/images/righticon.png'></image>
     <input class='nametext' type='text'></input>
   </view>
 
+  <view class="divide"></view>
+
   <view class="btn-area">
     <button formType="submit" type="primary">提交</button>
     <button formType="reset" type="primary">重置</button>
   </view>
+
 </form>

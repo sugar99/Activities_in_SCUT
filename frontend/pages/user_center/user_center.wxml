@@ -6,7 +6,7 @@
     <image src="{{avatar}}" class="avatarStyle"></image>
   </view>
   <view class="username">
-    <text>{{username}}</text>
+    <text>{{nickname}}</text>
   </view>
 </view>
 
@@ -25,11 +25,11 @@
           {{activity.title}}
       </view>
       <!-- 内容 -->
-      <view class="detail border3" wx:if="{{showIndex1 == index + 1}}">
+      <view class="detail border3" data-id="{{activity.a_id}}" wx:if="{{showIndex1 == index + 1}}" bindtap="loadActivity">
         <text>时间：{{activity.time}}\n</text>
-        <text>地点：{{activity.address}}\n</text>
-        <text>主办：{{activity.host}}\n</text>
-        <text>人数：{{activity.signed}} / {{activity.total}}\n</text>
+        <text>地点：{{activity.place}}\n</text>
+        <text>主办：{{activity.u_id}}\n</text>
+        <text>人数：{{activity.now}} / {{activity.max}}\n</text>
         <!-- <text>简介：{{activity.content}}\n</text> -->
       </view>
     </view>
@@ -51,11 +51,11 @@
           {{activity.title}}
         </view>
         <!-- 内容 -->
-        <view class="detail border3" wx:if="{{showIndex2 == index + 1}}">
+        <view class="detail border3" data-id="{{activity.a_id}}" wx:if="{{showIndex2 == index + 1}}" bindtap="loadActivity">
           <text>时间：{{activity.time}}\n</text>
-          <text>地点：{{activity.address}}\n</text>
-          <text>主办：{{activity.host}}\n</text>
-          <text>人数：{{activity.signed}} / {{activity.total}}\n</text>
+          <text>地点：{{activity.place}}\n</text>
+          <text>主办：{{activity.u_id}}\n</text>
+          <text>人数：{{activity.now}} / {{activity.max}}\n</text>
           <!-- <text>简介：{{activity.content}}\n</text> -->
           <button type="primary" class="button" bindtap="loadSign">查看名单</button>
         </view>
@@ -73,7 +73,7 @@
   </view>
   <!--下拉显示条目-->
   <view class='help' class="{{isDepartmentsFold?'display_show':'display_hide'}}">
-    <view class="help_item" wx:for="{{departments}}" wx:for-item="department">
+    <view class="help_item" wx:for="{{departments}}" wx:for-item="department" wx:key="{{index}}">
       <!-- 标题 -->
       <view class="title border2">
         {{department}}

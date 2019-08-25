@@ -7,8 +7,10 @@ Page({
     account: 'u_id',
 
     activity: {
+      a_id: 'a_id',
+
       poster: '../../images/lecture1.jpg',
-      
+
       title: '',
       time: '请选择',
       place: '请选择',
@@ -258,9 +260,12 @@ Page({
   
   // 提交活动
   formSubmit: function () {
-    console.log('form发生了submit事件，携带数据为：');
+    console.log('form发生了submit事件');
     // TODO: 提交活动插this.data.activity进activity表
     // ......
+    wx.navigateTo({
+      url: "../activity_info/activity_info?activity=" + this.data.activity.a_id + "&account=" + this.data.account
+    });
   },
 
   // 重置活动

@@ -61,8 +61,8 @@
   <view class="divide"></view>
 </view>
 <view class="round-click" bindtap="formSubmit">
-  <navigator url='/pages/addimages/addimages'>发布</navigator>
+  <text>发布</text>
 </view>
 <view class="round-click-2" bindtap="formReset">
-  <navigator url='/pages/addimages/addimages'>重置</navigator>
+  <text>重置</text>
 </view>

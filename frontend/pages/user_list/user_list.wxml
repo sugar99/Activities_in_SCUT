@@ -1,24 +1,23 @@
 <!--pages/user_list/user_list.wxml-->
-<view wx:for="{{participants}}" wx:key="{{index}}">
+<view wx:for="{{participants}}" wx:for-item="participant" wx:key="{{index}}">
   <view class='project'>
    <view class="project1"  data-index="{{index + 1}}" catchtap="panel">
-    <image src="{{item.imgUrl}}" class='headimage'></image>
-    <text class='projecttext'>{{item.nickname}}</text>
-    <image class="nameicon" src="{{item.iconImgUrl}}"></image>
+    <image src="{{participant.avatar}}" class='headimage'></image>
+    <text class='projecttext'>{{participant.nickname}}</text>
+    <image class="nameicon" src="{{iconImgUrl}}"></image>
    </view>
    <icon class="icon" type="clear" size="20" data-index="{{index}}" catchtap="delete"/>
   </view>
   <!-- 内容 -->
   <view class="detail item_border" wx:if="{{showIndex == index + 1}}">
-    <text>姓名：{{item.name}}\n</text>
-    <text>学号：{{item.student_number}}\n</text>
-    <text>性别：{{item.sex}}\n</text>
-    <text>校区：{{item.campus}}\n</text>
-    <text>年级：{{item.grade}}\n</text>
-    <text>学院：{{item.academy}}\n</text>
-    <text>专业：{{item.major}}\n</text>
-    <text>手机号：{{item.phoneNumber}}\n</text>
-    <text>邮箱号：{{item.mailBox}}\n</text>
+    <text>姓名：{{participant.username}}\n</text>
+    <text>学号：{{participant.student_number}}\n</text>
+    <text>性别：{{participant.gender}}\n</text>
+    <text>年级：{{participant.grade}}\n</text>
+    <text>学院：{{participant.department}}\n</text>
+    <text>专业：{{participant.major}}\n</text>
+    <text>手机号：{{participant.phone}}\n</text>
+    <text>邮箱号：{{participant.email}}\n</text>
   </view>
 </view>
 

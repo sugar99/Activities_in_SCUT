@@ -45,3 +45,7 @@
   padding-bottom: 20rpx;
 }
 
+.divide {
+  height: 10px;
+  background-color: #fff;
+}

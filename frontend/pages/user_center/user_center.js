@@ -11,67 +11,68 @@ Page({
     isPostActivitiesFold: false,
     isDepartmentsFold: false,
 
-    avatar: '/images/lovely_girl.jpg',
-    username: 'username',
-
     icon1: '/images/upicon.png',
     icon2: '/images/upicon.png',
     icon3: '/images/upicon.png',
 
+    account: 'a_id',
+    avatar: '/images/lovely_girl.jpg',
+    nickname: 'nickname',
+
     // 已参加的活动
     activities_sign: [
       {
-        id: 1000000,
-        title: "微软亚洲研究院创新论坛2019",
-        time: "2019-08-22",
-        address: "北京微软大厦",
-        content: "创新汇",
-        host: "微软亚研",
-        signed: 7,
-        total: 21,
-        isIn: false,
-      },
-      {
-        id: 1000001,
-        title: "2019年二十一世纪的计算大会",
-        time: "2019-08-30",
-        address: "上海世博中心",
-        content: "二十一世纪的计算大会",
-        host: "微软亚研",
-        signed: 7,
-        total: 21,
-        isIn: false,
+        a_id: 'a_id', // 活动标识
+        title: 'title', // 活动标题
+        time: 'time', // 活动时间
+        place: 'place', // 活动地点
+        poster: '../../images/poster.jpg', // 活动海报
+        intro: 'intro', // 活动介绍
+        u_id: 'u_id', // 发布用户标识
+        user_name: "user_name", // 发布用户名字
+        d_id: 'd_id', // 发布组织标识
+        dept_name: "dept_name", // 发布组织名字
+        max: 100, // 上限人数
+        now: 0, // 报名人数
       }
     ],
 
     // 已发布的活动
     activities_post: [
       {
-        id: 1000002,
-        title: "计算机视觉应用冬季会议",
-        time: "2020-03-02",
-        address: "夏威夷",
-        content: "计算机视觉应用方面交流会",
-        host: "美国",
-        signed: 7,
-        total: 21,
-        isIn: false,
-      },
-      {
-        id: 1000003,
-        title: "美国人工智能协会年会",
-        time: "2020-01-27",
-        address: "夏威夷",
-        content: "人工智能领域重要会议",
-        host: "美国人工智能协会",
-        signed: 7,
-        total: 21,
-        isIn: false,
+        a_id: 'a_id', // 活动标识
+        title: 'title', // 活动标题
+        time: 'time', // 活动时间
+        place: 'place', // 活动地点
+        poster: '../../images/poster.jpg', // 活动海报
+        intro: 'intro', // 活动介绍
+        u_id: 'u_id', // 发布用户标识
+        user_name: "user_name", // 发布用户名字
+        d_id: 'd_id', // 发布组织标识
+        dept_name: "dept_name", // 发布组织名字
+        max: 100, // 上限人数
+        now: 0, // 报名人数
       }
     ],
 
     // 已加入的组织
     departments: ["ISO","IEC","ITU"]
+  },
+
+  // 页面加载中心
+  onShow: function () {
+    /*var isSignUp = isAlreadySignUp(account);
+    if(!isSignUp) {
+      wx.navigateTo({
+        url: '../sign_up/sign_up',
+      })
+    }*/
+  },
+
+  // 是否已经注册
+  isAlreadySignUp: function (id) {
+    var isSignUp = getWechatInfo();
+    return isSignUp;
   },
 
   // 加载已参加的活动
@@ -81,6 +82,25 @@ Page({
         isSignActivitiesFold: false,
         icon1: '/images/upicon.png'
       })
+      var that = this;
+      wx.request({
+        url: "TODO:$加载已参加的活动接口", // 接口地址
+        method: 'GET', // 请求方法
+        header: {
+          'content-type': 'application/json' // 默认类型
+        },
+        // 成功
+        success: function (res) {
+          console.log("后端获取活动 √成功", res.data.activityList);
+          that.setData({
+            activities_sign: res.data
+          });
+        },
+        // 失败
+        fail: function (err) {
+          console.log("后端获取活动 ×失败", err);
+        }
+      });
     }
     else {
       this.setData({
@@ -97,6 +117,25 @@ Page({
         isPostActivitiesFold: false,
         icon2: '/images/upicon.png'
       })
+      var that = this;
+      wx.request({
+        url: "TODO:$加载已发布的活动接口", // 接口地址
+        method: 'GET', // 请求方法
+        header: {
+          'content-type': 'application/json' // 默认类型
+        },
+        // 成功
+        success: function (res) {
+          console.log("后端获取活动 √成功", res.data.activityList);
+          that.setData({
+            activities_post: res.data
+          });
+        },
+        // 失败
+        fail: function (err) {
+          console.log("后端获取活动 ×失败", err);
+        }
+      });
     }
     else {
       this.setData({
@@ -113,6 +152,25 @@ Page({
         isDepartmentsFold: false,
         icon3: '/images/upicon.png'
       })
+      var that = this;
+      wx.request({
+        url: "TODO: $加载已加入的组织", // 接口地址
+        method: 'GET', // 请求方法
+        header: {
+          'content-type': 'application/json' // 默认类型
+        },
+        // 成功
+        success: function (res) {
+          console.log("后端获取活动 √成功", "TODO: $已加入的组织列表");
+          that.setData({
+            departments: res.data
+          });
+        },
+        // 失败
+        fail: function (err) {
+          console.log("后端获取活动 ×失败", err);
+        }
+      });
     }
     else {
       this.setData({
@@ -150,8 +208,11 @@ Page({
 
   // 跳转查看用户信息
   loadInfo: function () {
-    wx.navigateTo({
+    /*wx.navigateTo({
       url: '../user_info/user_info'
+    })*/
+    wx.navigateTo({
+      url: '../sign_up/sign_up',
     })
   },
 
@@ -163,105 +224,17 @@ Page({
     })
   },
 
-  // 加载活动列表
-  onLoad: function () {
-    console.log("加载活动列表");
-    // var that = this;
-    wx.showLoading({
-      title: '努力加载中...',
-    });
-
-    // that.loadActivities();
-    this.loadAcitivities();
-    wx.hideLoading();
-  },
-
-  // 下拉更新活动
-  onPullDownRefresh: function () {
-    console.log("下拉更新活动");
-    // var that = this;
-    wx.showNavigationBarLoading();
-
-    setTimeout(() => {
-      // that.loadActivities();
-      this.loadAcitivities();
-      wx.hideNavigationBarLoading();
-      wx.stopPullDownRefresh();
-    }, 2000)
-  },
-
-  // 后端获取数据
-  loadAcitivities: function () {
-    var that = this;
-    wx.request({
-      url: "http://localhost:8888/dbpractice/dbadmin/listactivity", // 接口地址
-      method: 'GET',
-      header: {
-        'content-type': 'application/json' //默认值
-      },
-      // 成功
-      success: function (res) {
-        console.log("加载活动列表 成功", res.data.activityList);
-        that.setData({
-          activities: res.data.activityList
-        });
-      },
-      // 失败
-      fail: function (err) {
-        console.log("加载活动列表 失败", err);
-      }
-    })
-  },
-
-  // 活动详情
-  showActivity: function (event) {
-    console.log(event.currentTarget.id)
-    console.log(!(event.currentTarget.id == ""))
-    console.log("../activity_info/activity_/" + event.currentTarget.id + "activity_" + event.currentTarget.id)
-
-    if (!(event.currentTarget.id == "")) {
-      console.log("存在该活动");
-      wx.navigateTo({
-        url: "../activity_info/activity_" + event.currentTarget.id + "/activity_" + event.currentTarget.id
-      });
-    } else {
-      console.log("没有该活动");
-    }
-
-    // TODO: blk传参问题
+  // 跳转查看活动详情
+  loadActivity: function (e) {
+    console.log("跳转活动索引 !" + e.currentTarget.dataset.id);
     wx.navigateTo({
-      url: "../activity_info/activity_" + 1 + "/activity_" + 1
+      url: "../activity_info/activity_info?activity=" + e.currentTarget.dataset.id + "&account=" + this.data.account
     });
   },
 
-  // 已参与活动
-  signActivities: function () {
-    console.log("已参与活动");
-    var that = this;
-    wx.request({
-      url: "http://localhost:8888/dbpractice/dbadmin//getactivitybyid", // 接口地址
-      method: 'GET',
-      header: {
-        'content-type': 'application/json' //默认值
-      },
-      // 成功
-      success: function (res) {
-        console.log("加载活动列表 成功", res.data.activityList);
-        that.setData({
-          activities: res.data.activityList
-        });
-      },
-      // 失败
-      fail: function (err) {
-        console.log("加载活动列表 失败", err);
-      }
-    })
+  // TODO: 读取头像、微信号、昵称
+  getWechatInfo: function () {
+    // ......
   },
-
-  // 已发布活动
-  postActivities: function () {
-    console.log("已发布活动");
-  },
-
 })
 

@@ -110,4 +110,7 @@ Page({
   getWechatInfo: function() {
     // ......
   },
+
+  // TODO: 避免重复报名
+  // ......
 })
