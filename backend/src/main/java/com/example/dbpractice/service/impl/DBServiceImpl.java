@@ -335,7 +335,7 @@ public class DBServiceImpl implements DBService {
 
         try {
             int effectedRow = signDao.deleteSign(signToDelete);
-            if (effectedRow > 1) {
+            if (effectedRow > 0) {
                 return true;    //删除成功
             } else {
                 throw new RuntimeException("删除参与关系失败！");
