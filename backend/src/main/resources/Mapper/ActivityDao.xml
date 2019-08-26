@@ -17,8 +17,8 @@
         FROM `activity`
         WHERE `a_id`=#{a_id}
     </select>
-    <select id="queryActivityByPublisherId" resultType="com.example.dbpractice.entity.Activity">
-        SELECT `a_id`
+    <select id="queryActivityIdByPublisherId" resultType="com.example.dbpractice.entity.Activity">
+        SELECT *
         FROM `activity`
         WHERE `publisher`=#{u_id}
     </select>
@@ -29,8 +29,8 @@
     </select>
     <insert id="insertActivity" parameterType="com.example.dbpractice.entity.Activity"
             useGeneratedKeys="true" keyColumn="a_id" keyProperty="a_id">
-        INSERT INTO `activity` (`title`,`time`,`place`,`tag`,`intro`,`quota`,`publisher`,`organizer`,`official`,`constrain_id`)
-        VALUES (#{title},#{time},#{place},#{tag},#{intro},#{quota},#{publisher},#{organizer},#{official},#{constrain_id})
+        INSERT INTO `activity` (`title`,`time`,`place`,`tag`,`intro`,`poster`,`quota`,`publisher`,`organizer`,`official`,`constrain_id`)
+        VALUES (#{title},#{time},#{place},#{tag},#{intro},#{poster},#{quota},#{publisher},#{organizer},#{official},#{constrain_id})
     </insert>
     <update id="updateActivity" parameterType="com.example.dbpractice.entity.Activity">
         UPDATE `activity`

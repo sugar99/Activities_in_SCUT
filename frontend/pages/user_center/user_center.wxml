@@ -18,7 +18,7 @@
     <image class='nameicon' src="{{icon1}}"></image>
   </view>
   <!--下拉显示条目-->
-  <view class='help' class="{{isSignActivitiesFold?'display_show':'display_hide'}}">
+  <view class='help' class="{{isSignActivitiesFold?'display_hide':'display_show'}}">
     <view class="help_item" wx:for="{{activities_sign}}" wx:for-item="activity" wx:key="{{index}}">
       <!-- 标题 -->
       <view class="title border2" data-index="{{index + 1}}" catchtap="loadSignActivitiesPanel">
@@ -28,8 +28,9 @@
       <view class="detail border3" data-id="{{activity.a_id}}" wx:if="{{showIndex1 == index + 1}}" bindtap="loadActivity">
         <text>时间：{{activity.time}}\n</text>
         <text>地点：{{activity.place}}\n</text>
-        <text>主办：{{activity.u_id}}\n</text>
-        <text>人数：{{activity.now}} / {{activity.max}}\n</text>
+        <text>承办部门：{{activity.organizer}}\n</text>
+        <!-- <text>发布用户：{{activity.publisher}}\n</text> -->
+        <!-- <text>人数：{{activity.now}} / {{activity.max}}\n</text> -->
         <!-- <text>简介：{{activity.content}}\n</text> -->
       </view>
     </view>
@@ -44,20 +45,21 @@
       <image class='nameicon' src="{{icon2}}"></image>
     </view>
     <!--下拉显示条目-->
-    <view class='help' class="{{isPostActivitiesFold?'display_show':'display_hide'}}">
+    <view class='help' class="{{isPostActivitiesFold?'display_hide':'display_show'}}">
       <view class="help_item" wx:for="{{activities_post}}" wx:for-item="activity" wx:key="{{index}}">
         <!-- 标题 -->
         <view class="title border2" data-index="{{index + 1}}" catchtap="loadPostActivitiesPanel">
           {{activity.title}}
         </view>
         <!-- 内容 -->
-        <view class="detail border3" data-id="{{activity.a_id}}" wx:if="{{showIndex2 == index + 1}}" bindtap="loadActivity">
+        <view class="detail border3" data-id="{{activity.a_id}}" wx:if="{{showIndex2 == index + 1}}" bindtap="loadEdit">
           <text>时间：{{activity.time}}\n</text>
           <text>地点：{{activity.place}}\n</text>
-          <text>主办：{{activity.u_id}}\n</text>
-          <text>人数：{{activity.now}} / {{activity.max}}\n</text>
+          <text>承办部门：{{activity.organizer}}\n</text>
+          <!-- <text>发布用户：{{activity.publisher}}\n</text> -->
+          <!-- <text>人数：{{activity.now}} / {{activity.max}}\n</text> -->
           <!-- <text>简介：{{activity.content}}\n</text> -->
-          <button type="primary" class="button" bindtap="loadSign">查看名单</button>
+          <button type="primary" class="button" data-id="{{activity.a_id}}" bindtap="loadSign">查看名单</button>
         </view>
       </view>
     </view>

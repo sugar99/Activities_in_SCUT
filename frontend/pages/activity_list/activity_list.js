@@ -60,6 +60,20 @@ Page({
     wx.hideLoading();
   },
 
+  // 页面展示活动
+  onShow: function () {
+    console.log("页面加载活动");
+    wx.showLoading({
+      title: '努力加载中...',
+    });
+    this.loadAcitivities();
+    this.setData({
+      idxOfTag: 0,
+      classification: '分类：全部显示',
+    });
+    wx.hideLoading();
+  },
+
   // 下拉更新活动
   onPullDownRefresh: function () {
     console.log("下拉更新活动");
@@ -83,8 +97,15 @@ Page({
       // 成功
       success: function (res) {
         console.log("后端获取活动 √成功", res.data.activityList);
+        var activityList = res.data.activityList;
+        for (var idx in activityList) {
+          var activity = activityList[idx];
+          console.log(typeof (activity.time));
+          activityList[idx].time = activity.time.substring(0, 10);
+          console.log(activityList[idx].time);
+        }
         that.setData({
-          activities: res.data.activityList
+          activities: activityList
         });
       },
       // 失败
@@ -118,7 +139,7 @@ Page({
     console.log('分类为', this.data.classification);
     // TODO: 传idOfTag到后端进行分类
     wx.request({
-      url: "http://localhost:8888/dbpractice/dbadmin/getactivitybytag?tag=0", // 接口地址
+      url: "http://localhost:8888/dbpractice/dbadmin/getactivitybytag?tag=" + that.data.idxOfTag, // 接口地址
       method: 'GET', // 请求方法
       header: {
         'content-type': 'application/json' // 默认类型
@@ -135,8 +156,6 @@ Page({
         console.log("后端获取活动 ×失败", err);
       }
     });
-
-    
   },
 
   // 绑定排序选择器
@@ -168,7 +187,9 @@ Page({
     // TODO: 传SearchData到后端进行搜索
     // ......
     wx.request({
-      url: "http://localhost:8888/dbpractice/dbadmin/getactivitybykeyword?keyword=华工", // 接口地址
+      url: "http://localhost:8888/dbpractice/dbadmin/getactivitybykeyword?keyword=" + that.data.SearchData, // 接口地址
+      // url: "http://localhost:8888/dbpractice/dbadmin/getactivitybykeyword?keyword=开学", // 接口地址
+
       method: 'GET', // 请求方法
       header: {
         'content-type': 'application/json' // 默认类型

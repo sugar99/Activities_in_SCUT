@@ -6,7 +6,8 @@
     "pages/user_center/user_center",
     "pages/user_info/user_info",
     "pages/user_list/user_list",
-    "pages/sign_up/sign_up"
+    "pages/sign_up/sign_up",
+    "pages/activity_edit/activity_edit"
   ],
   "window": {
     "backgroundColor": "#ffffff",

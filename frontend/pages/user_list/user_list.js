@@ -8,25 +8,33 @@ Page({
     next:{},
     deleteOrNot:false,
     returnOrNot:false,
-    participants:[
-      {
+    a_id: '2',
+    participants: [
+      /*{
         avatar: '/images/LiuQiangDong.jpg',
-        nickname :'不知妻美',
-        username: '刘强东',
-        student_number: 125,
-        grade: '很老',
-        department: '不知',
-        major: '资本家',
-        gender: '男',
-        phone: 986775463,
-        email: '321435343@qq.com',
-      }
-    ]
+        nickname: 'nickname',
+        u_id: 'u_id',
+        username: '',
+        school_id: '',
+        grade: '请选择',
+        dept_name: '请选择',
+        major: '请选择',
+        gender: '请选择',
+        phone: '',
+        email: '',
+        address:'',
+        isadmin: false,
+      }*/
+    ],
   },
 
   // 页面加载名单
-  onLoad: function () {
+  onLoad: function (q) {
     console.log("页面加载名单");
+    this.setData({
+      a_id: q.a_id
+    })
+    console.log(this.data.a_id)
     wx.showLoading({
       title: '努力加载中...',
     });
@@ -49,21 +57,52 @@ Page({
   loadParticipants: function () {
     var that = this;
     wx.request({
-      url: "TODO: $后端获取名单接口", // 接口地址
+      url: "http://localhost:8888/dbpractice/dbadmin/getparticipantbyaid?a_id=" + that.data.a_id, // 接口地址
       method: 'GET', // 请求方法
       header: {
         'content-type': 'application/json' // 默认类型
       },
       // 成功
       success: function (res) {
-        console.log("后端获取名单 √成功", "$后端获取名单列表");
+        console.log("后端获取名单 √成功", res.data.participantList);
+        console.log(res.data.participantList);
+        /*var ids = res.data.participantIdList;
+        for (var id in ids) {
+          that.fromIdToUser(ids[id]);
+        };
+        console.log(that.data.participants);*/
+        /*that.setData({
+          participants: users
+        });*/
         that.setData({
-          participants: res.data
+          participants: res.data.participantList
         });
       },
       // 失败
       fail: function (err) {
         console.log("后端获取名单 ×失败", err);
+      }
+    });
+  },
+
+  fromIdToUser: function(id) {
+    var that = this;
+    wx.request({
+      url: "http://localhost:8888/dbpractice/dbadmin//getuserbyid?u_id=" + id, // 接口地址
+      method: 'GET', // 请求方法
+      header: {
+        'content-type': 'application/json' // 默认类型
+      },
+      // 成功
+      success: function (res) {
+        console.log("后端进行转换 √成功", res.data.user);
+        that.setData({
+          participants: that.data.participants.push(res.data.user)
+        })
+      },
+      // 失败
+      fail: function (err) {
+        console.log("后端获取活动 ×失败", err);
       }
     });
   },
@@ -88,7 +127,7 @@ Page({
   },
 
   // 删除指定数组项
-  delete: function(e){
+  deleteParticipant: function(e){
     var index = e.currentTarget.dataset.index;
     var partici = this.data.participants;
     var pre1 = partici.splice(index, 1);
@@ -97,8 +136,33 @@ Page({
       deleteOrNot: true,
       pre: pre1
     })
-    // TODO: 后端活动剔除用户
-    // ......
+    var userId = e.currentTarget.dataset.id;
+    console.log('剔除用户id为' + e.currentTarget.dataset.id);
+    var that = this;
+    wx.request({
+      url: "http://localhost:8888/dbpractice/dbadmin/deletesign", // 接口地址
+      method: 'GET', // 请求方法
+      data:{
+        u_id: userId,
+        a_id: that.data.a_id
+        // u_id: "skywalker",
+        // a_id: 1,
+      },
+      header: {
+        'content-type': 'application/json' // 默认类型
+      },
+      // 成功
+      success: function (res) {
+        console.log("后端获取名单 √成功", res.data);
+        //that.setData({
+        // participants: res.data
+        //});
+      },
+      // 失败
+      fail: function (err) {
+        console.log("后端获取名单 ×失败", err);
+      }
+    });
   },
 
   // 返回上一步

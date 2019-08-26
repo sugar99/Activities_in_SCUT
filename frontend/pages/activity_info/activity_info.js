@@ -27,6 +27,28 @@ Page({
     now: 0,*/
   },
 
+  fromIdToName: function() {
+    var that = this;
+    wx.request({
+      url: "http://localhost:8888/dbpractice/dbadmin//getuserbyid?u_id=" + that.data.publisher, // 接口地址
+      method: 'GET', // 请求方法
+      header: {
+        'content-type': 'application/json' // 默认类型
+      },
+      // 成功
+      success: function (res) {
+        console.log("后端获取活动 √成功", res.data.user);
+        that.setData({
+          publisher: res.data.user.username
+        });
+      },
+      // 失败
+      fail: function (err) {
+        console.log("后端获取活动 ×失败", err);
+      }
+    });
+  },
+
   // 页面加载活动
   onLoad: function (q) {
     console.log("页面加载活动");
@@ -65,7 +87,10 @@ Page({
       // 成功
       success: function (res) {
         console.log("后端获取活动 √成功", res.data.activity);
-        that.setData(res.data.activity);
+        var activity = res.data.activity
+        activity.time = activity.time.substring(0, 10)
+        that.setData(activity);
+        that.fromIdToName();
       },
       // 失败
       fail: function (err) {
@@ -105,15 +130,25 @@ Page({
       // this.setData({ now: tmp });
       // TODO: 向sign表插数据
       // ......
+      var u_id = 'LotteWong'
       wx.request({
-        url: 'http://localhost:8888/dbpractice/dbadmin/addsign',
+        url: 'http://localhost:8888/dbpractice/dbadmin/addsign?a_id=' + that.data.a_id + '&u_id=' + u_id,
         method:'GET',
-        data:{
+        /*data:{
           a_id:'1',
           u_id:'LotteWong',
+        },*/
+        success: function (res) {
+          console.log("后端是否报名 √成功", res.data);
+          // that.setData("TODO: $是否报名返回数据");
+          return true;
+        },
+        // 失败
+        fail: function (err) {
+          console.log("后端是否报名 ×失败", err);
+          return false;
         }
       })
-      console.log("报名成功");
     // }
     // else if(isIn){
       // console.log("已经报名");

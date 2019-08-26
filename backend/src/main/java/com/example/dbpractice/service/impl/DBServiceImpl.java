@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -147,17 +148,13 @@ public class DBServiceImpl implements DBService {
         return activityDao.queryActivityById(a_id);
     }
     @Override
-    public List<Activity> getActivityByPublisherId(String u_id) {
-        return activityDao.queryActivityByPublisherId(u_id);
+    public List<Activity> getActivityIdByPublisherId(String u_id) {
+        return activityDao.queryActivityIdByPublisherId(u_id);
     }
     //以tag查询活动
     @Override
     public List<Activity> getActivityByTag(int tag) {
-//        if ("文娱活动".equals(tag) || "体育赛事".equals(tag) || "知识讲座".equals(tag) || "学科竞赛".equals(tag)) {
-//            return activityDao.queryActivityByTag(tag);
-//        } else {
-//            throw new RuntimeException("活动类别必须是 文娱活动/体育赛事/知识讲座/学科竞赛 中的一种");
-//        }
+        //TODO 传入的tag需<4
         String[] tags = new String[]{"test","文娱活动","体育赛事","知识讲座","学科竞赛"};
         return activityDao.queryActivityByTag(tags[tag]);
     }
@@ -182,6 +179,7 @@ public class DBServiceImpl implements DBService {
         try {
             System.out.println("addActivity");
             int effectedRow = activityDao.insertActivity(activityToAdd);
+            System.out.println("addActivity-success");
             if (effectedRow > 0) {
                 return true;
             } else {
@@ -230,17 +228,31 @@ public class DBServiceImpl implements DBService {
     }
     @Override
     public List<Activity> getActivityByKeyWord(String keyWord) {
+        //TODO 不知为何返回结果是null 未能实现关键词搜索
         List<Activity> activityList = activityDao.queryActivity();
-        List<Activity> resultActivities = null;
-        for(Iterator<Activity> it = activityList.iterator(); it.hasNext();){
-            Activity temp =it.next();
+        List<Activity> resultActivities = new ArrayList<Activity>();
+
+//        //遍历时使用重载的构造函数
+//        for(Iterator<Activity> it = activityList.iterator(); it.hasNext();){
+//            Activity temp = new Activity(it.next());
+//            String title = temp.getTitle();
+//
+//            System.out.println(title);
+//
+//            if(title.contains(keyWord))
+//                resultActivities.add(temp);
+//        }
+        for (Iterator<Activity> it = activityList.iterator(); it.hasNext(); ) {
+            Activity temp = it.next();
             String title = temp.getTitle();
+
             System.out.println(title);
-            if(title.contains(keyWord))
-                resultActivities.add(temp);
+
+            if (title.contains(keyWord)){
+                System.out.println("here"+title);
+                resultActivities.add(new Activity(temp));
+            }
         }
-        System.out.println("here");
-        System.out.println(resultActivities.get(0).getTitle());
         return resultActivities;
     }
 
@@ -269,10 +281,6 @@ public class DBServiceImpl implements DBService {
         String organizer = request.getParameter("organizer");
         System.out.println("impl6");
         boolean official = request.getParameter("official")=="true" ? true:false;
-//        String temp = request.getParameter("constrain_id");
-//        if(temp!=null && !("".equals(temp))) {
-//            int constrain_id = Integer.parseInt(temp);
-//        }
         System.out.println("impl7");
         Activity activity = new Activity(title,time,place,tag,intro,poster,quota,publisher,organizer,official);
         return activity;

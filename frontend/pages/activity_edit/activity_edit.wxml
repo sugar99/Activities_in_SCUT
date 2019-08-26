@@ -26,7 +26,7 @@
     </picker>
     <view class="header">活动详情</view>
       <input class="titleinput" type="text" placeholder="请填写" value="{{activity.intro}}" bindconfirm='introInput' />
-    <!-- <view class="header">性别筛选</view>
+    <view class="header">性别筛选</view>
     <picker bindchange="bindGenderPickerChange" value="{{idxOfGender}}" range="{{genders}}">
       <view class="textdisplay">{{gender}}</view>
     </picker>
@@ -41,7 +41,7 @@
     <view class="header">专业筛选</view>
     <picker bindchange="bindMajorPickerChange" value="{{idxOfMajor}}" range="{{majors[idxOfDepartment]}}">
       <view class="textdisplay">{{major}}</view>
-    </picker> -->
+    </picker>
     <view class="header">人数上限</view>
     <input class="titleinput" type="text" placeholder="请填写" value="{{activity.quota}}" bindconfirm='quotaInput'></input>
     <!-- <view class="header">其它要求</view> -->
@@ -59,7 +59,7 @@
   <view class="divide"></view>
 </view>
 <view class="round-click" bindtap="formSubmit">
-  <text>发布</text>
+  <text>修改</text>
 </view>
 <view class="round-click-2" bindtap="formReset">
   <text>重置</text>

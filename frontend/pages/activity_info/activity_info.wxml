@@ -13,6 +13,9 @@
   <!-- <view class="style-8"> -->
   <!-- 报名人数：{{now}} / {{quota}} -->
   <!-- </view> -->
+  <view class="style-8">  
+    所属分类：{{tag}}
+  </view>
 </view>
 <view class="time">
   <view class="style-2">

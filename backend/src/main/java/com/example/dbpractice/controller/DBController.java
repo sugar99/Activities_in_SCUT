@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,7 +83,7 @@ public class DBController {
     @RequestMapping(value = "/getactivitybypublisherid",method = RequestMethod.GET)
     private Map<String,Object> getActivityByPublisherId(String u_id){
         Map<String, Object> modelMap = new HashMap<>();
-        List<Activity> activityList = DBService.getActivityByPublisherId(u_id);
+        List<Activity> activityList = DBService.getActivityIdByPublisherId(u_id);
         modelMap.put("activityList",activityList);
         return modelMap;
     }
@@ -94,6 +95,8 @@ public class DBController {
         modelMap.put("activityList",activityList);
         return modelMap;
     }
+    //返回标题包含keyWord关键词的活动
+    //TODO 返回结果总是null
     @RequestMapping(value = "/getactivitybykeyword",method = RequestMethod.GET)
     public Map<String,Object> getActivityByKeyWord(String keyword){
         Map<String, Object> modelMap = new HashMap<>();
@@ -135,11 +138,19 @@ public class DBController {
         return modelMap;
     }
     //查询a_id指定的活动的所有参与者的u_id列表
-    @RequestMapping(value = "/getparticipantidbyaid",method = RequestMethod.GET)
-    public Map<String,Object> getParticipantIdByAid(int a_id){
+    @RequestMapping(value = "/getparticipantbyaid",method = RequestMethod.GET)
+    public Map<String,Object> getParticipantByAid(int a_id){
         Map<String, Object> modelMap = new HashMap<>();
+        //返回参与者u_id列表
         List<String> participantIdList = DBService.getParticipantIdByAid(a_id);
-        modelMap.put("participantIdList",participantIdList);
+        //返回参与者列表
+        List<User> participantList = new ArrayList<User>();
+        for(String data:participantIdList){
+            User temp = DBService.getUserById(data);
+            System.out.println(temp.getU_id());
+            participantList.add(temp);
+        }
+        modelMap.put("participantList",participantList);
         return modelMap;
     }
     //查看u_id指定用户已参与的所有活动的a_id列表

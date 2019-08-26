@@ -59,8 +59,24 @@ public class Activity {
         this.publisher = publisher;
         this.organizer = organizer;
         this.official = official;
-    }
 
+    }
+    //重载构造函数
+    public Activity(Activity activity){
+        this.a_id = activity.a_id;
+        this.title = activity.title;
+        this.time = activity.time;
+        this.place = activity.place;
+        this.tag = activity.tag;
+        this.intro = activity.intro;
+        this.poster = activity.poster;
+        this.quota = activity.quota;
+        this.publisher = activity.publisher;
+        this.organizer = activity.organizer;
+        this.official = activity.official;
+        this.constrain_id = activity.constrain_id;
+
+    }
 
 
 

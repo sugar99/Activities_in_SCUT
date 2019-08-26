@@ -7,16 +7,15 @@ Page({
     account: '1',
 
     activity: {
-      // a_id: '',
-      title: '',
+      a_id: '3',
       poster: '../../images/lecture1.jpg',
-      // poster:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1566788312727&di=fe6bca5389efd0beb8004d1a30d22f6e&imgtype=jpg&src=http%3A%2F%2Fimg0.imgtn.bdimg.com%2Fit%2Fu%3D1708795685%2C420594497%26fm%3D214%26gp%3D0.jpg',
+      title: '',
       time: '请选择',
       place: '请选择',
       tag: '请选择',
       intro: '',
-      publisher: 'LotteWong',
-      organizer: '软件学院',
+      publisher: '1',
+      organizer: '微软亚太研发集团',
       quota: '',
       offical: false,
       constrain_id: '',
@@ -266,25 +265,25 @@ Page({
   },
 
   // 上传海报
-  // uploadPoster: function(){
-  //   var that = this;
-  //   wx.chooseImage({
-  //     count: 1, // 默认为9
-  //     sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-  //     sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-  //     success: function (res) {
-  //       // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-  //       var tempFilePaths = res.tempFilePaths
-  //       var temp = that.data.activity;
-  //       // temp.poster = tempFilePaths;
-  //       temp.poster = '../../images/exodus.jpg'
-  //       console.log(temp.poster)
-  //       that.setData({ 
-  //         activity: temp
-  //       });
-  //     }
-  //   })
-  // },
+  uploadPoster: function(){
+    var that = this;
+    wx.chooseImage({
+      count: 1, // 默认为9
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success: function (res) {
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        var tempFilePaths = res.tempFilePaths
+        var temp = that.data.activity;
+        // temp.poster = tempFilePaths;
+        temp.poster = '../../images/exodus.jpg'
+        console.log(temp.poster)
+        that.setData({ 
+          activity: temp
+        });
+      }
+    })
+  },
   
   // 提交活动
   formSubmit: function () {
@@ -295,7 +294,7 @@ Page({
     // TODO: 
 
     wx.request({
-      url: "http://localhost:8888/dbpractice/dbadmin/addactivity", // 接口地址
+      url: "http://localhost:8888/dbpractice/dbadmin//modifyactivity", // 接口地址
       method: 'GET', // 请求方法
       header: {
         'content-type': 'application/json' // 默认类型
@@ -305,8 +304,7 @@ Page({
       success: function (res) {
         console.log("后端添加活动 √成功", res.data.activityList);
         that.setData({
-          //activities: res.data.activityList
-          
+          activities: res.data.activityList
         });
       },
       // 失败
