@@ -16,7 +16,7 @@
     <view class="header">真实姓名</view>
     <input class="titleinput" type="text" placeholder="请填写" value="{{user.username}}" bindconfirm='usernameInput'></input>
     <view class="header">学生学号</view>
-    <input class="titleinput" type="text" placeholder="请填写" value="{{user.student_number}}" bindconfirm='studentNumberInput'></input>
+    <input class="titleinput" type="text" placeholder="请填写" value="{{user.school_id}}" bindconfirm='studentNumberInput'></input>
     <view class="header">性别选择</view>
     <picker bindchange="bindGenderPickerChange" value="{{idxOfGender}}" range="{{genders}}">
       <view class="textdisplay">{{user.gender}}</view>
@@ -27,7 +27,7 @@
     </picker>
     <view class="header">学院选择</view>
     <picker bindchange="bindDepartmentPickerChange" value="{{idxOfDepartment}}" range="{{departments}}">
-      <view class="textdisplay">{{user.department}}</view>
+      <view class="textdisplay">{{user.dept_name}}</view>
     </picker>
     <view class="header">专业选择</view>
     <picker bindchange="bindMajorPickerChange" value="{{idxOfMajor}}" range="{{majors[idxOfDepartment]}}">

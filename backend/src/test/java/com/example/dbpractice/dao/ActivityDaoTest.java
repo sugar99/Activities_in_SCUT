@@ -48,8 +48,8 @@ public class ActivityDaoTest {
 //        Activity activity = new Activity(null,"华工退学典礼",new Date(),"学校门口","test",
 //                "你被退学了~拜拜","http://xxx.com/poster.com",4,"LotteWong",
 //                "软件学院",false,1);
-        Activity activity = new Activity(null,"肝",new Date(),"咖啡厅","学科竞赛",
-                "肝爆它","http://photocdn.sohu.com/20130925/Img387224863.jpg",4,"skywalker",
+        Activity activity = new Activity(null,"华工退学典礼",new Date(),"大学城校区大门口","文娱活动",
+                "退学~回炉重造","http://photocdn.sohu.com/20130925/Img387224863.jpg",4,"test",
                 "软件学院",true,1);
 
         int effectedNum = activityDao.insertActivity(activity);

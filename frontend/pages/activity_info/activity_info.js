@@ -100,22 +100,28 @@ Page({
   },
 
   // 是否已经报名
-  isAlreadyEnroll: function(id) {
+  isAlreadySignUp: function(id) {
     var that = this;
     wx.request({
-      url: "TODO: $是否报名接口地址", // 接口地址
+      url: "http://localhost:8888/dbpractice/dbadmin//getuserbyid?u_id=" + id, // 接口地址
       method: 'GET', // 请求方法
       header: {
         'content-type': 'application/json' // 默认类型
       },
       // 成功
       success: function (res) {
-        console.log("后端是否报名 √成功", "TODO: $是否报名返回数据");
-        that.setData("TODO: $是否报名返回数据");
+        console.log("后端获取活动 √成功", res.data.user);
+        console.log(!res.data.user && typeof (res.data.user) != "undefined" && res.data.user != 0);
+        if (!res.data.user && typeof (res.data.user) != "undefined" && res.data.user != 0) {
+          return false;
+        }
+        else {
+          return true;
+        }
       },
       // 失败
       fail: function (err) {
-        console.log("后端是否报名 ×失败", err);
+        console.log("后端获取活动 ×失败", err);
       }
     });
   },
@@ -130,14 +136,21 @@ Page({
       // this.setData({ now: tmp });
       // TODO: 向sign表插数据
       // ......
-      var u_id = 'LotteWong'
+    // if (!this.isAlreadySignUp(app.globalData.userInfo.nickName)) {
+    //   console.log(app.globalData.userInfo.nickName);
+    //   wx.navigateTo({
+    //     url: '../sign_up/sign_up'
+    //   })
+    // }
+    // else {
+      console.log(app.globalData.userInfo.nickName);
       wx.request({
-        url: 'http://localhost:8888/dbpractice/dbadmin/addsign?a_id=' + that.data.a_id + '&u_id=' + u_id,
-        method:'GET',
-        /*data:{
-          a_id:'1',
-          u_id:'LotteWong',
-        },*/
+        url: 'http://localhost:8888/dbpractice/dbadmin/addsign',
+        method: 'GET',
+        data:{
+          a_id: that.data.a_id,
+          u_id: app.globalData.userInfo.nickName,
+        },
         success: function (res) {
           console.log("后端是否报名 √成功", res.data);
           // that.setData("TODO: $是否报名返回数据");
@@ -149,6 +162,8 @@ Page({
           return false;
         }
       })
+    // }
+     
     // }
     // else if(isIn){
       // console.log("已经报名");

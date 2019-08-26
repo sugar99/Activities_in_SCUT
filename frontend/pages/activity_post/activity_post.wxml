@@ -26,6 +26,11 @@
     </picker>
     <view class="header">活动详情</view>
       <input class="titleinput" type="text" placeholder="请填写" value="{{activity.intro}}" bindconfirm='introInput' />
+      <view class="header">学院筛选</view>
+    <picker bindchange="bindDepartmentPickerChange" value="{{idxOfDepartment}}" range="{{departments}}">
+      <view class="textdisplay">{{dept_name}}</view>
+    </picker>
+    
     <!-- <view class="header">性别筛选</view>
     <picker bindchange="bindGenderPickerChange" value="{{idxOfGender}}" range="{{genders}}">
       <view class="textdisplay">{{gender}}</view>
@@ -33,10 +38,6 @@
     <view class="header">年级筛选</view>
     <picker bindchange="bindGradePickerChange" value="{{idxOfGrade}}" range="{{grades}}">
       <view class="textdisplay">{{grade}}</view>
-    </picker>
-    <view class="header">学院筛选</view>
-    <picker bindchange="bindDepartmentPickerChange" value="{{idxOfDepartment}}" range="{{departments}}">
-      <view class="textdisplay">{{dept_name}}</view>
     </picker>
     <view class="header">专业筛选</view>
     <picker bindchange="bindMajorPickerChange" value="{{idxOfMajor}}" range="{{majors[idxOfDepartment]}}">

@@ -15,7 +15,7 @@ Page({
     icon2: '/images/upicon.png',
     icon3: '/images/upicon.png',
 
-    account: 'LotteWong',
+    account: 'Rose',
     avatar: '../../images/lecture1.jpg',
     nickname: 'nickname',
 
@@ -95,7 +95,8 @@ Page({
     }*/
     this.setData({
       avatar: app.globalData.userInfo.avatarUrl,
-      nickname: app.globalData.userInfo.nickName
+      nickname: app.globalData.userInfo.nickName,
+      account: app.globalData.userInfo.nickName
     })
     var that = this;
     wx.request({
@@ -120,8 +121,29 @@ Page({
 
   // 是否已经注册
   isAlreadySignUp: function (id) {
-    var isSignUp = getWechatInfo();
-    return isSignUp;
+    var that = this;
+    wx.request({
+      url: "http://localhost:8888/dbpractice/dbadmin//getuserbyid?u_id=" + id, // 接口地址
+      method: 'GET', // 请求方法
+      header: {
+        'content-type': 'application/json' // 默认类型
+      },
+      // 成功
+      success: function (res) {
+        console.log("后端获取活动 √成功", res.data.user);
+        console.log(!(typeof res.data.user == "undefined"))
+        if (!(typeof res.data.user == "undefined")) {
+          return true;
+        }
+        else {
+          return false;
+        }
+      },
+      // 失败
+      fail: function (err) {
+        console.log("后端获取活动 ×失败", err);
+      }
+    });
   },
 
   // 加载已参加的活动
@@ -134,21 +156,21 @@ Page({
       var that = this;
       console.log(that.data.account);
       wx.request({
-        url: "http://localhost:8888/dbpractice/dbadmin/getactivityidbyuid?u_id=" + that.data.account, // 接口地址
+        url: "http://localhost:8888/dbpractice/dbadmin/getactivitylistbyuid?u_id=" + that.data.account, // 接口地址
         method: 'GET', // 请求方法
         header: {
           'content-type': 'application/json' // 默认类型
         },
         // 成功
         success: function (res) {
-          console.log("后端获取活动 √成功", res.data.activityIdList);
-          var ids = res.data.activityIdList;
-          var activities = [];
-          for (var id in ids) {
-            activities.push(that.data.activities_all[ids[id]])
-          };
+          console.log("后端获取活动 √成功", res.data.activityList);
+          // var ids = res.data.activityIdList;
+          // var activities = [];
+          // for (var id in ids) {
+          //   activities.push(that.data.activities_all[ids[id]])
+          // };
           that.setData({
-            activities_sign: activities
+            activities_sign: res.data.activityList
           });
         },
         // 失败
@@ -273,9 +295,17 @@ Page({
     /*wx.navigateTo({
       url: '../user_info/user_info'
     })*/
-    wx.navigateTo({
-      url: '../sign_up/sign_up',
-    })
+    // if(this.isAlreadySignUp(this.data.account)) {
+    //   wx.navigateTo({
+    //     url: '../user_info/user_info'
+    //   })
+    // }
+    // else{
+      wx.navigateTo({
+        url: '../sign_up/sign_up',
+      })
+    // }
+    
   },
 
   // 跳转查看用户信息

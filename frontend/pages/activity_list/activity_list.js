@@ -133,6 +133,12 @@ Page({
     this.setData({
       idxOfTag: e.detail.value,
     });
+    // console.log(e.detail.value)
+    // console.log(typeof (this.data.idxOfTag))
+    // console.log(e.detail.value == "全部显示")
+    // if (e.detail.value == "全部显示") {
+    //   that.loadAcitivities()
+    // }
     this.setData({
       classification: this.data.tag[this.data.idxOfTag],
     });

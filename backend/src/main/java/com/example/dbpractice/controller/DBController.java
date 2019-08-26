@@ -153,12 +153,18 @@ public class DBController {
         modelMap.put("participantList",participantList);
         return modelMap;
     }
-    //查看u_id指定用户已参与的所有活动的a_id列表
-    @RequestMapping(value = "/getactivityidbyuid",method = RequestMethod.GET)
+    //查看u_id指定用户已参与的所有活动的列表
+    @RequestMapping(value = "/getactivitylistbyuid",method = RequestMethod.GET)
     public Map<String,Object> getActivityIdByUid(String u_id){
         Map<String, Object> modelMap = new HashMap<>();
+        //返回已参与的活动a_id列表
         List<Integer> activityIdList = DBService.getActivityIdByUid(u_id);
-        modelMap.put("activityIdList",activityIdList);
+        //返回已参与的活动列表
+        List<Activity> activityList = new ArrayList<Activity>();
+        for(int data: activityIdList){
+            activityList.add(DBService.getActivityById(data));
+        }
+        modelMap.put("activityList",activityList);
         return modelMap;
     }
     //新增参与关系 用户参与了一个活动

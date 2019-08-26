@@ -1,14 +1,17 @@
 // pages/sign_up/sign_up.js
+
+var app = getApp();
+
 Page({
   data: {
     user: {
       avatar: '/images/LiuQiangDong.jpg',
       nickname: 'nickname',
-      account: 'u_id',
+      u_id: 'u_id',
       username: '',
-      student_number: '',
+      school_id: '',
       grade: '请选择',
-      department: '请选择',
+      dept_name: '请选择',
       major: '请选择',
       gender: '请选择',
       phone: '',
@@ -18,7 +21,7 @@ Page({
     genders: ['男', '女'],
     idxOfGender: 0,
 
-    grades: ['2016级', '2017级', '2018级', '2019级'],
+    grades: ['2016', '2017', '2018', '2019'],
     idxOfGrade: 0,
 
     departments: ['软件学院', '计算机学院', '电信学院', '医学院'],
@@ -37,6 +40,16 @@ Page({
       })
     }*/
   // },
+
+  onLoad: function() {
+    var temp = this.data.user
+    temp.u_id = app.globalData.userInfo.nickName;
+    temp.avatar = app.globalData.userInfo.avatarUrl;
+    temp.nickname = app.globalData.userInfo.nickName;
+    this.setData({
+      user: temp
+    })
+  },
 
   // 是否已经注册
   isAlreadySignUp: function (id) {
@@ -58,7 +71,7 @@ Page({
   studentNumberInput: function (e) {
     console.log("学号输入：" + e.detail.value);
     var temp = this.data.user;
-    temp.student_number = e.detail.value;
+    temp.school_id = e.detail.value;
     this.setData({
       user: temp
     });
@@ -97,7 +110,7 @@ Page({
       idxOfDepartment: e.detail.value,
     });
     var temp = this.data.user;
-    temp.department = this.data.departments[this.data.idxOfDepartment];
+    temp.dept_name = this.data.departments[this.data.idxOfDepartment];
     this.setData({
       user: temp
     });
@@ -139,8 +152,26 @@ Page({
   // 提交注册
   formSubmit: function () {
     console.log('form发生了submit事件');
-    // TODO: 提交用户插this.data进user表
-    // ......
+    var that = this;
+    wx.request({
+      url: "http://localhost:8888/dbpractice/dbadmin/adduser", // 接口地址
+      method: 'GET', // 请求方法
+      header: {
+        'content-type': 'application/json' // 默认类型
+      },
+      data: that.data.user,
+      // 成功
+      success: function (res) {
+        console.log("后端添加活动 √成功", res.data);
+        // that.setData({
+        //   //activities: res.data.activityList
+        // });
+      },
+      // 失败
+      fail: function (err) {
+        console.log("后端添加活动 ×失败", err);
+      }
+    });
     wx.navigateBack({
       
     })
@@ -152,11 +183,11 @@ Page({
     var temp = {
       avatar: '/images/LiuQiangDong.jpg',
       nickname: 'nickname',
-      account: 'u_id',
+      u_id: 'u_id',
       username: '',
-      student_number: '',
+      school_id: '',
       grade: '请选择',
-      department: '请选择',
+      dept_name: '请选择',
       major: '请选择',
       gender: '请选择',
       phone: '',

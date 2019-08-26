@@ -35,12 +35,15 @@ public class UserDaoTest {
 
     @Test
     public void insertUser() {
-//        User user = new User("skywalker","201730683413","suheng","jerry",
-//                "男","2017","软件工程","软件学院","http://xxx.com/avator.jpg",
-//                "c10-518","110","1464778552@qq.com",true);
-        User user = new User("LotteWong","20173068","xiupin","wong",
-                "女","2017","软件工程","软件学院","http://xxx.com/heravator.jpg",
-                "c8","110","xxxxxx@qq.com",true);
+        User user = new User("Jerry","201730683413","suheng","Jerry",
+                "男","2017","软件工程","软件学院","http://xxx.com/avator.jpg",
+                "c10-518","110","1464778552@qq.com",true);
+//        User user = new User("LotteWong","20173068","xiupin","wong",
+//                "女","2017","软件工程","软件学院","http://xxx.com/heravator.jpg",
+//                "c8","110","xxxxxx@qq.com",true);
+//        User user = new User("test","test","test","test",
+//                "男","2017","软件工程","软件学院","http://xxx.com/heravator.jpg",
+//                "c1","111","xxxxxx@qq.com",false);
         int effectedNum = userDao.insertUser(user);
         assertEquals(1,effectedNum);
     }

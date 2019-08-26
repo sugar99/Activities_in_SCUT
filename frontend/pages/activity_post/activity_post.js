@@ -16,7 +16,7 @@ Page({
       tag: '请选择',
       intro: '',
       publisher: 'LotteWong',
-      organizer: '软件学院',
+      organizer: '',
       quota: '',
       offical: false,
       constrain_id: '',
@@ -48,14 +48,19 @@ Page({
   },
 
   onLoad: function(q) {
-    console.log("跨页面传参：" + q.a_id);
-    if (!(typeof q.a_id == "undefined")){
+    // console.log("跨页面传参：" + q.a_id);
+    console.log(app.globalData.userInfo.nickName);
+    // if (!(typeof q.a_id == "undefined")){
       var temp = this.data.activity;
-      temp.a_id = q.a_id;
+      // temp.a_id = q.a_id;
+      temp.publisher = app.globalData.userInfo.nickName;
       this.setData({
         activity: temp
       })
-    }
+    // }
+    this.setData({
+      account: app.globalData.userInfo.nickName
+    })
     console.log("当前活动编号：" + this.data.activity.a_id);
   },
 
@@ -227,6 +232,11 @@ Page({
     this.setData({
       dept_name: this.data.departments[this.data.idxOfDepartment]
     })
+    var temp = this.data.activity;
+    temp.organizer = this.data.dept_name;
+    this.setData({
+      activity: temp
+    });
   },
 
   // 绑定专业选择器的函数
@@ -303,11 +313,11 @@ Page({
       data: that.data.activity,
       // 成功
       success: function (res) {
-        console.log("后端添加活动 √成功", res.data.activityList);
-        that.setData({
+        console.log("后端添加活动 √成功", res.data);
+        // that.setData({
           //activities: res.data.activityList
           
-        });
+        // });
       },
       // 失败
       fail: function (err) {

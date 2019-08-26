@@ -55,6 +55,7 @@ Page({
         activity: temp
       })
     }
+    this.data.account = app.globalData.userInfo.nickName
     console.log("当前活动编号：" + this.data.activity.a_id);
   },
 

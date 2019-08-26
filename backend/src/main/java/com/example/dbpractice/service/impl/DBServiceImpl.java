@@ -155,7 +155,10 @@ public class DBServiceImpl implements DBService {
     @Override
     public List<Activity> getActivityByTag(int tag) {
         //TODO 传入的tag需<4
-        String[] tags = new String[]{"test","文娱活动","体育赛事","知识讲座","学科竞赛"};
+        if(tag == 0){
+            return activityDao.queryActivity();
+        }
+        String[] tags = new String[]{"全部显示","文娱活动","体育赛事","知识讲座","学科竞赛"};
         return activityDao.queryActivityByTag(tags[tag]);
     }
     @Override
